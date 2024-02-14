@@ -25,7 +25,7 @@ We plan to use a React framework for a frontend and a Node.js and MySQL backend.
 - Ryan Peruski: I am a junior in Computer Science. I have experience in data analysis in Python and SQLite, so I will plan to work on more of the backend and data analysis. I also have experience in Operating Systems Programming in C, and I'm learning about Cybersecurity, so I plan to use this knowledge to protect against security threats.
 - Jake Marlow: I am a junior in Computer Science. I have experience in C++, C, JavaScript, and React. I will be working with Chris White on the front-end developement and functionality of our site. My goal is to provide a smooth and easy to use UI/UX for our project.
 - Chris White: I am a Junior in Computer Science. I have experience in frontend HTML, cross-platform Java, and C++. I plan to work on web scraping and frontend to allow for a high quality and smooth user experience. Although I am planning on studying Cybersecurity, I have not yet begun, so I will focus my energy on an advanced yet visibly soft user interface.
-- Gabe Carson: [Fill in your information here - background and role]
+- Gabe Carson: I am a junior in Computer Science. I have experience in C, C++, JavaScript, Python, and OpenGL. I will be working with Ryan Peruski on the backend database and middleware. My goal is to create a accurate, secure, and reliable data base for the website.
 
 ## Project Management
 
