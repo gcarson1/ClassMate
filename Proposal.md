@@ -22,7 +22,7 @@ Other users, including school faculty, can use the site to obtain information ab
 
 ## Proposed Solution and Technology
 
-We plan to use a React framework for a frontend and a Node.js and MySQL backend. We forsee the use of some Python scripts for data collection and analysis. We will plan to use some free/cheap option like Azure to get the application up and running. We will also check what we can do with student accounts. The main issue we forsee involve making the website dynamic, user-friendly, and secure, as we do plan to have users edit and add data to the website.
+We plan to use a React framework for a frontend and a Node.js and MySQL backend. We forsee the use of some Python scripts for data collection and analysis. We will plan to use some free/cheap option like Azure to get the application up and running, and we will all use a Docker container that supports everything that we need. We will also check what we can do with student accounts. The main issue we forsee involve making the website dynamic, user-friendly, and secure, as we do plan to have users edit and add data to the website.
 
 ## Team
 
