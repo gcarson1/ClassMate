@@ -12,7 +12,7 @@ Our project is a web application that allows students to rate and review their c
 
 Our team has a variety of skills, such as data analysis, web development, and cybersecurity. We plan to use these skills to make a user-friendly, secure, and dynamic website.
 
-## Customer Value and User Stores
+## Customer Value and User Stories
 
 We provide the value of information about classes to students. This way, with this knowledge, students can better prepare for their classes or decide if taking the class is worth it. We hope to provide what RateMyProfessor has failed to provide, as there will now be specific classes. We will know if the project is successful by the number of users and reviews on the website. We also hope to see a lot of feedback from students in order to improve the student experience.
 
