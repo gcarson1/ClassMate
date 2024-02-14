@@ -23,7 +23,7 @@ We plan to use a React framework for a frontend and a Node.js and MySQL backend.
 ## Team
 
 - Ryan Peruski: I am a junior in Computer Science. I have experience in data analysis in Python and SQLite, so I will plan to work on more of the backend and data analysis. I also have experience in Operating Systems Programming in C, and I'm learning about Cybersecurity, so I plan to use this knowledge to protect against security threats.
-- Jake Marlow: [Fill in your information here - background and role]
+- Jake Marlow: I am a junior in Computer Science. I have experience in C++, C, Javascript, SQL, and React. I plan to work with Chris White on the front-end development for ClassMate to provide a easy to use and intuitive UI/UX. 
 - Chris White: I am a Junior in Compuer Science. I have experience in frontend HTML, cross-platform Java, and C++. I plan to work on web scraping and frontend to allow for a high quality and smooth user experience. Although I am planning on studying Cybersecurity, I have not yet begun, so I will focus my energy on an advanced yet visibly soft user interface. 
 - Gabe Carson: I am a junior in Computer Science. I have experience in JavaScript, C, C++, Java, Python. I plan to work on the backend in SQL and Express.js. I find UI interesting and much of my personal work has been done in OpenGL with wxWidgets to make C++ applications as well as other frameworks.
 
@@ -36,3 +36,7 @@ The next few sprints should focus on adding the dynamic features to the website.
 The last few sprints should focus on cleaning up, testing, and making the website free of bugs and security threats. From here, we hope to have a fully presentable website.
 
 If we cannot get the website to be dynamic, this would be a huge hit to our functionality. However, if we run into this, we will add as much as we can to a static website to provide our experience of the classes that we have collected.
+
+
+## Tech Flow
+![classMate techFLow](https://github.com/cs340-24/RateMyClass/assets/114703597/5380f1ff-d817-45af-a9d0-f6d9b9a0b62f)
