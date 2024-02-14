@@ -36,3 +36,7 @@ The next few sprints should focus on adding the dynamic features to the website.
 The last few sprints should focus on cleaning up, testing, and making the website free of bugs and security threats. From here, we hope to have a fully presentable website.
 
 If we cannot get the website to be dynamic, this would be a huge hit to our functionality. However, if we run into this, we will add as much as we can to a static website to provide our experience of the classes that we have collected.
+
+
+## Tech Flow
+![classMate techFLow](https://github.com/cs340-24/RateMyClass/assets/114703597/5380f1ff-d817-45af-a9d0-f6d9b9a0b62f)
