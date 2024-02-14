@@ -16,9 +16,9 @@ Our team has a variety of skills, such as data analysis, web development, and cy
 
 We provide the value of information about classes to students. This way, with this knowledge, students can better prepare for their classes or decide if taking the class is worth it. We hope to provide what RateMyProfessor has failed to provide, as there will now be specific classes. We will know if the project is successful by the number of users and reviews on the website. We also hope to see a lot of feedback from students in order to improve the student experience.
 
-Our users will be students who want information about what a specific class will provide and how difficult the material is, which they can obtain through viewing the class page on our site which provides a 1-5 difficulty rating, 1-5 enrichment rating, and student comments on the class itself. 
+Our users will be students who want information about what a specific class will provide and how difficult the material is, which they can obtain through viewing the class page on our site which provides a 1-5 difficulty rating, 1-5 enrichment rating, and student comments on the class itself.
 
-Other users, including school faculty, can use the site to obatin information about what students think about the curriculum of the class and how the content was used later in their school career and future careers. 
+Other users, including school faculty, can use the site to obtain information about what students think about the curriculum of the class and how the content was used later in their school career and future careers.
 
 ## Proposed Solution and Technology
 
@@ -28,10 +28,12 @@ We plan to use a React framework for a frontend and a Node.js and MySQL backend.
 
 - Ryan Peruski: I am a junior in Computer Science. I have experience in data analysis in Python and SQLite, so I will plan to work on more of the backend and data analysis. I also have experience in Operating Systems Programming in C, and I'm learning about Cybersecurity, so I plan to use this knowledge to protect against security threats.
 - Jake Marlow: I am a junior in Computer Science. I have experience in C++, C, Javascript, SQL, and React. I plan to work with Chris White on the front-end development for ClassMate to provide a easy to use and intuitive UI/UX.
-- Chris White: I am a Junior in Compuer Science. I have experience in frontend HTML, cross-platform Java, and C++. I plan to work on web scraping and frontend to allow for a high quality and smooth user experience. Although I am planning on studying Cybersecurity, I have not yet begun, so I will focus my energy on an advanced yet visibly soft user interface.
+- Chris White: I am a Junior in Computer Science. I have experience in frontend HTML, cross-platform Java, and C++. I plan to work on web scraping and frontend to allow for a high quality and smooth user experience. Although I am planning on studying Cybersecurity, I have not yet begun, so I will focus my energy on an advanced yet visibly soft user interface.
 - Gabe Carson: I am a junior in Computer Science. I have experience in JavaScript, C, C++, Java, Python. I plan to work on the backend in SQL and Express.js. I find UI interesting and much of my personal work has been done in OpenGL with wxWidgets to make C++ applications as well as other frameworks.
 
 ## Project Management
+
+We plan to meet every friday during class time to schedule code reviews, discuss the project, etc. Furthermore, we have a Discord server to send files and communicate. We have a legal issue involving user data if we successfully get the website to be dynamic, so we will need to look into encrypting user data as well as making the database immune to various SQL injection attacks.
 
 The first sprint should not focus on making the website dynamic. Instead, we should focus on learning our technologies and setting up a static website. For this sprint, we would also like to make sure that we know the steps to get the website up and running.
 
