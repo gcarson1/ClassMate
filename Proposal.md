@@ -44,3 +44,7 @@ If we cannot get the website to be dynamic, this would be a huge hit to our func
 ## Tech Flow
 
 ![classMate techFLow](https://github.com/cs340-24/RateMyClass/assets/114703597/5380f1ff-d817-45af-a9d0-f6d9b9a0b62f)
+
+## Minimal System
+
+Our minimal system includes a database connected to a node.js backend, which is able to make http requests through the backend using express.js middlewear. These http requests functions should be baked into web elements that users can make such as requesting a specific classes info page and viewing/posting comments.
