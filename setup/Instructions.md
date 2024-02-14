@@ -11,3 +11,12 @@
 7. Let it run
 8. Enjoy your new environment! - Here, you can clone the repo, push, commit, etc. within the repo. It is just like running WSL or SSH in VSCode.
 9. Make sure you have docker running whilst in the dev container
+10. In case y'all have not done this, here is a list of commands I ran in my terminal to setup
+
+```bash
+git config --global user.email "yhg461@vols.utk.edu" #replace with your info anytime you see my email (obviously)
+git config --global user.name "Silverasdf"
+ssh-keygen -t ed25519 -C "yhg461@vols.utk.edu" 
+cat /home/node/.ssh/id_ed25519.pub #Or wherever the file said it would be -- important to print the public key
+#Copy this up to the email and then go to GitHub -> settings -> ssh and gpg keys -> new ssh key then paste the key in the box
+```
