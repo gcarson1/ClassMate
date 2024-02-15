@@ -22,3 +22,7 @@ ssh-keygen -t ed25519 -C "yhg461@vols.utk.edu"
 cat /home/node/.ssh/id_ed25519.pub #Or wherever the file said it would be -- important to print the public key
 #Copy this up to the email and then go to GitHub -> settings -> ssh and gpg keys -> new ssh key then paste the key in the box
 ```
+
+## Port stuff
+
+1. Luckily, the front end does not have to worry about this, but from the backend, your need to do some port forwarding.
