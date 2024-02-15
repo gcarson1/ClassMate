@@ -16,6 +16,6 @@ app.get('/', (re, res) => {
     return res.json("From Backend Side");
 });
 
-app.listen(8081, () => {
-    console.log('Server is running on port 8081');
+app.listen(7071, () => {
+    console.log('Server is running on port 7071');
 });
