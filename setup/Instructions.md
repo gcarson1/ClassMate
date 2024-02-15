@@ -14,6 +14,8 @@
 10. In case y'all have not done this, here is a list of commands I ran in my terminal to setup
 
 ```bash
+git clone https://github.com/cs340-24/RateMyClass.git
+cd RateMyClass/
 git config --global user.email "yhg461@vols.utk.edu" #replace with your info anytime you see my email (obviously)
 git config --global user.name "Silverasdf"
 ssh-keygen -t ed25519 -C "yhg461@vols.utk.edu" 
