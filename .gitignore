@@ -1,1 +1,4 @@
 .history/
+.devcontainer/devcontainer.json
+.devcontainer/docker-compose.yml
+.devcontainer/Dockerfile
