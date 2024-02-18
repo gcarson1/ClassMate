@@ -1,11 +1,10 @@
-const express = require('express');
-const mysql = require('mysql');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
 
 const app = express();
 app.use(cors());
 
-app.get('/', (re, res) => {
+app.get('/', (req, res) => {
     return res.json("From Backend Side");
 });
 

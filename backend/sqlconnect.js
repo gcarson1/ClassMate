@@ -50,4 +50,4 @@ async function testQuery() {
     }
 }
 
-export default testQuery
+export default testQuery // export any query function created like this
