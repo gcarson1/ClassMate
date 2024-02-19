@@ -23,6 +23,10 @@ cat /home/node/.ssh/id_ed25519.pub #Or wherever the file said it would be -- imp
 #Copy this up to the email and then go to GitHub -> settings -> ssh and gpg keys -> new ssh key then paste the key in the box
 ```
 
-## Port stuff
+## Backend setup
 
-1. Luckily, the front end does not have to worry about this, but from the backend, your need to do some port forwarding.
+1. Open the terminal in the dev container and change to backend directory
+2. Run `npm i` to install all the dependencies
+3. Create a file named `.env.development` in the backend directory. Fill this information with the database information. See discord for this info.
+4. Run `bash run.sh` to test the sql backend.
+5. Run `node server.js` to test the server.
