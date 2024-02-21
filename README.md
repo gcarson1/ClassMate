@@ -1,2 +1,3 @@
 # ClassMate
+
 See Proposal.md
