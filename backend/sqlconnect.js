@@ -49,4 +49,17 @@ async function testQuery() {
     }
 }
 
-export default testQuery // export any query function created like this
+async function getClassInfo(id) {
+    try {
+        let poolConnection = await sql.connect(config);
+        let resultSet = await poolConnection.request().input('id', sql.Int, id).query(`SELECT * FROM [dbo].[Class] WHERE ID =
+        @id`);
+        poolConnection.close();
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}
+
+export default {getClassInfo, testQuery} // export any query function created like this
