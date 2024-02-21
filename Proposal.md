@@ -29,17 +29,17 @@ We plan to use a React framework for a frontend and a Node.js and MySQL backend.
 - Ryan Peruski: I am a junior in Computer Science. I have experience in data analysis in Python and SQLite, so I will plan to work on more of the backend and data analysis. I also have experience in Operating Systems Programming in C, and I'm learning about Cybersecurity, so I plan to use this knowledge to protect against security threats.
 - Jake Marlow: I am a junior in Computer Science. I have experience in C++, C, Javascript, SQL, and React. I plan to work with Chris White on the front-end development for ClassMate to provide a easy to use and intuitive UI/UX.
 - Chris White: I am a Junior in Computer Science. I have experience in frontend HTML, cross-platform Java, and C++. I plan to work on web scraping and frontend to allow for a high quality and smooth user experience. Although I am planning on studying Cybersecurity, I have not yet begun, so I will focus my energy on an advanced yet visibly soft user interface.
-- Gabe Carson: I am a junior in Computer Science. I have experience in JavaScript, C, C++, Java, Python. I plan to work on the backend in SQL and Express.js. I find UI interesting and much of my personal work has been done in OpenGL with wxWidgets to make C++ applications as well as other frameworks.
+- Gabe Carson: I am a junior in Computer Science. I have experience in C, C++, JavaScript, Python, and OpenGL. I will be working with Ryan Peruski on the backend database and middleware. My goal is to create a accurate, secure, and reliable data base for the website.
 
 ## Project Management
 
 We plan to meet every friday during class time to schedule code reviews, discuss the project, etc. Furthermore, we have a Discord server to send files and communicate. We have a legal issue involving user data if we successfully get the website to be dynamic, so we will need to look into encrypting user data as well as making the database immune to various SQL injection attacks.
 
-The first sprint should not focus on making the website dynamic. Instead, we should focus on learning our technologies and setting up a static website. For this sprint, we would also like to make sure that we know the steps to get the website up and running.
+The first sprint should not focus on making the website dynamic. Instead, we should focus on learning our technologies and setting up a static website. For this sprint, we would also like to make sure that we know the steps to get the website up and running. We hope to get a Minimal System up and running by the end of this sprint.
 
-The next few sprints should focus on adding the dynamic features to the website. This includes adding the ability to add and edit reviews, as well as contributing to the average difficulty level of the class. We should also focus on making the website user-friendly and secure.
+The next few sprints (sprints 2-4) should focus on adding the dynamic features to the website. This includes adding the ability to add and edit reviews, as well as contributing to the average difficulty level of the class. We should also focus on making the website user-friendly and secure.
 
-The last few sprints should focus on cleaning up, testing, and making the website free of bugs and security threats. From here, we hope to have a fully presentable website.
+The last few sprints (sprints 5-6) should focus on cleaning up, testing, and making the website free of bugs and security threats. From here, we hope to have a fully presentable website.
 
 If we cannot get the website to be dynamic, this would be a huge hit to our functionality. However, if we run into this, we will add as much as we can to a static website to provide our experience of the classes that we have collected.
 
@@ -49,4 +49,4 @@ If we cannot get the website to be dynamic, this would be a huge hit to our func
 
 ## Minimal System
 
-Our minimal system includes a database connected to a node.js backend, which is able to make http requests through the backend using express.js middlewear. These http requests functions should be baked into web elements that users can make such as requesting a specific classes info page and viewing/posting comments.
+Our minimal system includes a database connected to a node.js backend, which is able to make http requests through the backend using express.js middlewear. These http requests functions should be baked into web elements that users can make such as requesting a specific classes info page and viewing/posting comments. We will plan to use test data for our minimal system.
