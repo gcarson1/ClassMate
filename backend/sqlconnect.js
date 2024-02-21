@@ -42,8 +42,10 @@ async function testQuery() {
 
         // close connection only when we're certain application is finished
         poolConnection.close();
+        return resultSet.recordset;
     } catch (err) {
         console.error(err.message);
+        return null;
     }
 }
 

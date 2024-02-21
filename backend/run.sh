@@ -1,1 +1,1 @@
-NODE_ENV=development node connect.js 
+NODE_ENV=development node server.js 
