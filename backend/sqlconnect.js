@@ -62,4 +62,4 @@ async function getClassInfo(id) {
     }
 }
 
-export default {getClassInfo, testQuery} // export any query function created like this
+export default testQuery // export any query function created like this
