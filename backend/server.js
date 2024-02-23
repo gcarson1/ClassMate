@@ -1,17 +1,19 @@
 import express from 'express';
 import cors from 'cors';
-import testQuery from './sqlconnect.js';
+import { getUniveristies } from './sqlconnect.js';
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
-let record = await testQuery(); // Fixes race condition - otherwise leads to an empty promise
+ 
 
-
-app.get('/', (req, res) => {
+app.get('/universities', async (req, res) => {
+    let record = await getUniveristies();
+    console.log(record);
     res.json(record);
 });
 
 app.listen(7071, () => {
     console.log('Server is running on port 7071');
-});
+})

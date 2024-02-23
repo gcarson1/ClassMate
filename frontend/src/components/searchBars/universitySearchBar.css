@@ -15,9 +15,9 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     margin-top: 50px;
-    margin-bottom: 50px;
     margin-right: 100px;
     margin-left: 100px;
+    padding-bottom: 50px;
 }
 
 .textBox {

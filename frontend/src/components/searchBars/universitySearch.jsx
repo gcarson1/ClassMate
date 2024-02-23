@@ -1,12 +1,26 @@
-import { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
+import {React, useState } from 'react';
 import "./universitySearchBar.css"
 
-function SearchBar() {
-    const [searchTerm, setSearchTerm] = useState('');
+export const SearchBar = ({ setResults }) => {
+    const [input, setInput] = useState("");
 
-    const handleChange = (event) => {
-        setSearchTerm(event.target.value);
+    
+    const fetchData = async (value) => {
+            const response = await fetch("http://localhost:7071/universities");
+            const json = await response.json();
+            const result = json.filter((uni) => {
+                return uni && value &&
+                uni.UniName && 
+                uni.UniName.toLowerCase().includes(value.toLowerCase());
+            });
+           setResults(result); 
     };
+        
+    const handleChange = (value) => {
+        setInput(value);
+        fetchData(value);
+    }
 
     return (
         <div className='searchBar-container'>
@@ -14,8 +28,8 @@ function SearchBar() {
             <input className='textBox'
                 type="text"
                 placeholder="Search University..."
-                value={searchTerm}
-                onChange={handleChange}
+                value={input}
+                onChange={(e) => handleChange(e.target.value)}
             />
         </div>
         </div>
@@ -23,4 +37,3 @@ function SearchBar() {
     );
 }
 
-export default SearchBar;

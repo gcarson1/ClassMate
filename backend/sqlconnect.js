@@ -62,4 +62,16 @@ async function getClassInfo(id) {
     }
 }
 
+export async function getUniveristies() {
+    try {
+        let poolConnection = await sql.connect(config);
+        console.log("requesting all Universities")
+        let resultSet = await poolConnection.request().query("SELECT * FROM [dbo].[University]");
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}
+
 export default testQuery // export any query function created like this
