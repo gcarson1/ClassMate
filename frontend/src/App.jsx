@@ -8,7 +8,7 @@ function App() {
     <div className="container">
       <NavBar />
       <SearchBar />
-    </div>
+    </div>    
   )
 }
 
