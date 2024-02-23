@@ -1,11 +1,14 @@
 import "./App.css"
+import NavBar from "./components/navBar/navBar"
+import SearchBar from "./components/searchBars/universitySearch"
 
 function App() {
   
   return (
     <div className="container">
-      <h1 className="content">ClassMate</h1>
-    </div>
+      <NavBar />
+      <SearchBar />
+    </div>    
   )
 }
 
