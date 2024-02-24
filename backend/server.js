@@ -9,7 +9,7 @@ app.use(cors());
  
 
 app.get('/universities', async (req, res) => {
-    let record = await getUniveristies();
+    let record = await getUniversities();
     console.log(record);
     res.json(record);
 });
