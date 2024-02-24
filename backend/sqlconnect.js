@@ -62,7 +62,7 @@ async function getClassInfo(id) {
     }
 }
 
-export async function getUniveristies() {
+export async function getUniversities() {
     try {
         let poolConnection = await sql.connect(config);
         console.log("requesting all Universities")
