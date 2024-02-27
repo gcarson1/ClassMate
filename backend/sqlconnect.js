@@ -17,12 +17,21 @@ const config = {
 }
 
 //create any query functions here
+// close connection only when we're certain application is finished
 
-
-async function testQuery() {
+//Connect to the database -> returns a pool connection
+export async function connect() {
     try {
         let poolConnection = await sql.connect(config);
+        return poolConnection;
+    } catch (err) {
+        console.error(err.message);
+    }
+}
 
+//Test query function -> inputs a pool connection and returns a record set
+async function testQuery(poolConnection) {
+    try {
         console.log("Reading rows from the Table...");
         let resultSet = await poolConnection.request().query(`SELECT * FROM [dbo].[Dummy]`);
 
@@ -40,8 +49,6 @@ async function testQuery() {
             console.log("%s   %s   %s", row.ID, row.Name, row.Age);
         });
 
-        // close connection only when we're certain application is finished
-        poolConnection.close();
         return resultSet.recordset;
     } catch (err) {
         console.error(err.message);
@@ -49,28 +56,24 @@ async function testQuery() {
     }
 }
 
-async function getClassInfo(id) {
+export async function getUniversities(poolConnection) {
     try {
-        let poolConnection = await sql.connect(config);
-        let resultSet = await poolConnection.request().input('id', sql.Int, id).query(`SELECT * FROM [dbo].[Class] WHERE ID =
-        @id`);
-        poolConnection.close();
-        return resultSet.recordset;
-    } catch (err) {
-        console.error(err.message);
-        return null;
-    }
-}
-
-export async function getUniversities() {
-    try {
-        let poolConnection = await sql.connect(config);
         console.log("requesting all Universities")
         let resultSet = await poolConnection.request().query("SELECT * FROM [dbo].[University]");
         return resultSet.recordset;
     } catch (err) {
         console.error(err.message);
         return null;
+    }
+}
+
+
+//Close the connection
+export async function closeConnection(poolConnection) {
+    try {
+        poolConnection.close();
+    } catch (err) {
+        console.error(err.message);
     }
 }
 
