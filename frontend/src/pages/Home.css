@@ -1,0 +1,17 @@
+.home-container{
+    background-image: url('../../public/images/stack.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+.searchBar {
+    display: flex;
+    flex-direction: column;
+}
+
+body, html {
+    margin: 0;
+  }
