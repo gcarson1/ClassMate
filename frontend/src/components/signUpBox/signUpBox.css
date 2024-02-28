@@ -1,0 +1,146 @@
+.signUpBox-container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 400px;
+    height: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1); /* Shadow effect */
+    border-radius: 10px;
+    position: absolute;
+    transform: translateX(-50%);
+    top: 25%;
+    left: 50%;
+}
+
+.signUpBox-header-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    padding-left: 120px;
+}
+
+.username-container{
+    width: 200px;
+    padding-left: 90px;
+    padding-top: 0px;
+}
+
+.username-entryarea{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+}
+
+.email-container{
+    margin: -40%;
+    width: 200px;
+    padding-left: 250px;
+    padding-top: 130px;
+}
+
+.email-entryarea{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+}
+
+.password-container{
+    margin: -10%;
+    width: 200px;
+    padding-left: 130px;
+    padding-top: 130px;
+}
+
+.password-entryarea{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+}
+
+.confirmPassword-container{
+    margin: -50%;
+    width: 200px;
+    padding-left: 290px;
+    padding-top: 170px;
+}
+
+.confirmPassword-entryarea{
+    position: relative;
+    height: 80px;
+    line-height: 80px;
+}
+
+input{
+    position: absolute;
+    padding: 5px;
+    width: 100%;
+    font-size: 13px;
+    border-radius: 10px;
+    z-index: 1111;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.signUpBox-barrier{
+    display: flex;
+    position: fixed;
+    padding-top: 300px;
+    padding-left: 25px;
+}
+
+.signUpBox-signup {
+    display: flex;
+    padding-top: 140px;
+    padding-left: 145px;
+}
+
+.signUpBox-signup-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
+    transition: background-color 0.5s, color 0.5s;
+    z-index: 1111;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.signUpBox-signup-text:hover {
+    padding: 8px;
+    background-color: white;
+    color: black;
+    border: solid black;    
+}
+
+.signUpBox-barrier-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    padding-top: 25px;
+}
+
+.signUpBox-pre-existing {
+    padding-top: 20px;
+    padding-left: 105px;
+}
+
+.signUpBox-pre-existing-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: gray;
+}
+
+.signUpBox-login {
+    margin: -10%;
+    padding-left: 194px;
+}
+
+.signUpBox-login-text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21px;
+}
+
+.signUpBox-login-text:hover {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 21.1px;
+    padding-top: 1px;
+    text-decoration: underline;
+}

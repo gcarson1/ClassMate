@@ -11,7 +11,7 @@ RouterProvider,
 //components and pages
 import NavBar from "../src/navBars/navBar"
 import Home from "./pages/Home";
-import SignUp from "./pages/signUp";
+import SignUp from "./pages/SignUp";
 import Login from "./pages/Login"
 
 
