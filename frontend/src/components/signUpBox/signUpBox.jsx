@@ -10,22 +10,22 @@ const SignUpBox = () => {
             <div className="inputs-container">
                 <div className="username-container">
                     <div className="username-entryarea">
-                        <input type="text" placeholder="Username" required/>
+                        <input className='input' type="text" placeholder="Username" required/>
                     </div>
                 </div>
                 <div className="email-container">
                     <div className="email-entryarea">
-                        <input type="text" placeholder='Email | @vols.utk.edu'/>
+                        <input className='input' type="text" placeholder='Email | @vols.utk.edu'/>
                     </div>
                 </div>
                 <div className="password-container">
                     <div className="password-entryarea">
-                        <input type="text" placeholder="Password"/>
+                        <input className='input' type="text" placeholder="Password"/>
                     </div>
                 </div>
                 <div className="confirmPassword-container">
                     <div className="confirmPassword-entryarea">
-                        <input type="text" placeholder='Confirm Password'/>
+                        <input className='input' type="text" placeholder='Confirm Password'/>
                     </div>
                 </div>
                 <div className="signUpBox-signup">
