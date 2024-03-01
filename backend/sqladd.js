@@ -5,7 +5,7 @@
 export async function addUser(poolConnection, username, password, email, uniID) {
     //TODO: Test function
     try {
-        console.log("Adding user to database");
+        console.log("Adding user " + username + " to database");
         let resultSet = await poolConnection.request().query(
             
             `
@@ -21,7 +21,10 @@ export async function addUser(poolConnection, username, password, email, uniID) 
 
             -- Step 3: Insert the new user into the table
             INSERT INTO [dbo].[User] (UserID, Username, Password, Email, UniID) 
-            VALUES (@maxUserID, '${username}', '${password}', '${email}', ${uniID});`
+            VALUES (@maxUserID, '${username}', '${password}', '${email}', ${uniID});
+            
+            COMMIT;
+            `
         );
         return resultSet.recordset;
     } catch (err) {
@@ -31,9 +34,8 @@ export async function addUser(poolConnection, username, password, email, uniID) 
 }
 
 export async function addUniversity(poolConnection, name) {
-    //TODO: Test function
     try {
-        console.log("Adding university to database");
+        console.log("Adding university " + name + " to database");
         let resultSet = await poolConnection.request().query(
             `
             -- Begin a transaction to ensure atomicity
@@ -45,6 +47,8 @@ export async function addUniversity(poolConnection, name) {
 
             INSERT INTO [dbo].[University] (UniID, UniName) 
             VALUES (@maxUniID, '${name}');
+
+            COMMIT;
             `
         );
         return resultSet.recordset;
@@ -57,7 +61,7 @@ export async function addUniversity(poolConnection, name) {
 export async function addClass(poolConnection, className, classNum, classTypeID) {
     //TODO: Test function
     try {
-        console.log("Adding class to database");
+        console.log("Adding class " + className + " to database");
         let resultSet = await poolConnection.request().query(`
         -- Begin a transaction to ensure atomicity
         BEGIN TRANSACTION;
@@ -73,6 +77,8 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 
         INSERT INTO [dbo].[ClassType_Class] (ClassTypeID, ClassID)
         VALUES (${classTypeID}, @maxID);
+
+        COMMIT;
         `);
         return resultSet.recordset;
     } catch (err) {
@@ -83,7 +89,7 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 
 export async function addComment(poolConnection, userID, comment, termTaken, grade, classID, difficultyValue, qualityValue, professorID) {
     try {
-        console.log("Adding comment to database");
+        console.log("Adding comment: '"  + comment + "' to database");
         let resultSet = await poolConnection.request().query(`
         -- Begin a transaction to ensure atomicity
         BEGIN TRANSACTION;
@@ -120,6 +126,7 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
         INSERT INTO [dbo].[Comments] (Comment, TermTaken, Grade, CommentID, UserID, ClassID, DifficultyID, PostDate) 
         VALUES ('${comment}', '${termTaken}', '${grade}', @maxCID, ${userID}, ${classID}, @maxID, CURRENT_TIMESTAMP);
 
+        COMMIT;
         `);
         return resultSet.recordset;
     } catch (err) {
@@ -131,7 +138,7 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
 export async function addProfessor(poolConnection, name, universityID) {
     //TODO: Test function
     try {
-        console.log("Adding professor to database");
+        console.log("Adding professor " + name + " to database");
         let resultSet = await poolConnection.request().query(
             `
             -- Begin a transaction to ensure atomicity
@@ -142,8 +149,10 @@ export async function addProfessor(poolConnection, name, universityID) {
             SET @maxID = ISNULL(@maxID, 0) + 1;
 
             INSERT INTO [dbo].[Professors] (ProfessorID, Name, UniID) 
-            VALUES (@maxID, '${name}', ${universityID});`
-        );
+            VALUES (@maxID, '${name}', ${universityID});
+        
+            COMMIT;
+            `);
         return resultSet.recordset;
     } catch (err) {
         console.error(err.message);
@@ -154,7 +163,7 @@ export async function addProfessor(poolConnection, name, universityID) {
 export async function addClassType(poolConnection, name, universityID) {
     //TODO: Test function
     try {
-        console.log("Adding class type to database");
+        console.log("Adding class type " + name + " to database");
         let resultSet = await poolConnection.request().query(
             `
             -- Begin a transaction to ensure atomicity
@@ -165,8 +174,10 @@ export async function addClassType(poolConnection, name, universityID) {
             SET @maxID = ISNULL(@maxID, 0) + 1;
 
             INSERT INTO [dbo].[ClassType] (ClassTypeID, ClassType, UniID) 
-            VALUES (@maxID, '${name}', ${universityID});`
-        );
+            VALUES (@maxID, '${name}', ${universityID});
+        
+            COMMIT;
+            `);
         return resultSet.recordset;
     } catch (err) {
         console.error(err.message);
@@ -177,7 +188,7 @@ export async function addClassType(poolConnection, name, universityID) {
 export async function addDifficulty(poolConnection, difficultyValue, qualityValue, userID, classID, professorID) {
     //TODO: Test function
     try {
-        console.log("Adding Difficulty to database");
+        console.log("Adding Difficulty of " + difficultyValue + " and quality " + qualityValue + " to database");
         let resultSet = await poolConnection.request().query(`
         -- Begin a transaction to ensure atomicity
         BEGIN TRANSACTION;
@@ -204,6 +215,7 @@ export async function addDifficulty(poolConnection, difficultyValue, qualityValu
         INSERT INTO [dbo].[Class_Difficulty] (ClassID, DifficultyID)
         VALUES (${classID}, @maxID);
 
+        COMMIT;
         `);
         return resultSet.recordset;
     } catch (err) {
