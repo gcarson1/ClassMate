@@ -6,26 +6,27 @@ export async function addUser(poolConnection, username, password, email, uniID) 
     //TODO: Test function
     try {
         console.log("Adding user " + username + " to database");
-        let resultSet = await poolConnection.request().query(
-            
-            `
+        let resultSet = await poolConnection.request().query(`
             -- Begin a transaction to ensure atomicity
             BEGIN TRANSACTION;
-
+            
             -- Step 1: Determine the highest UserID currently in the table
             DECLARE @maxUserID INT;
             SELECT @maxUserID = MAX(UserID) FROM Users;
-
+            
             -- Step 2: Increment the highest UserID by 1
             SET @maxUserID = ISNULL(@maxUserID, 0) + 1;
-
+            
             -- Step 3: Insert the new user into the table
-            INSERT INTO [dbo].[User] (UserID, Username, Password, Email, UniID) 
+            INSERT INTO [dbo].[Users] (UserID, Username, Password, Email, UniID) 
             VALUES (@maxUserID, '${username}', '${password}', '${email}', ${uniID});
             
+            -- Step 4: Commit the transaction
             COMMIT;
-            `
-        );
+            
+            -- Step 5: Select the details of the new user
+            SELECT * FROM Users WHERE UserID = @maxUserID;
+            `);
         return resultSet.recordset;
     } catch (err) {
         console.error(err.message);
@@ -49,6 +50,8 @@ export async function addUniversity(poolConnection, name) {
             VALUES (@maxUniID, '${name}');
 
             COMMIT;
+
+            SELECT * FROM University WHERE UniID = @maxUniID;
             `
         );
         return resultSet.recordset;
@@ -71,7 +74,7 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
         SET @maxID = ISNULL(@maxID, 0) + 1;
 
         INSERT INTO [dbo].[Class] (ClassID, ClassName, ClassNum, ClassTypeID) 
-        VALUES (@maxID, '${className}', ${classNum}, ${classTypeID});)
+        VALUES (@maxID, '${className}', ${classNum}, ${classTypeID});
         
         -- Junction table ClassType_Class
 
@@ -79,6 +82,8 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
         VALUES (${classTypeID}, @maxID);
 
         COMMIT;
+
+        SELECT * FROM Class WHERE ClassID = @maxID;
         `);
         return resultSet.recordset;
     } catch (err) {
@@ -87,6 +92,10 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
     }
 }
 
+//Note that a Comment AUTOMATICALLY adds a Difficulty, so we don't need to add a Difficulty separately
+//When a user wants to vote on difficulty, they will be adding a Difficulty. They can also add a comment, but they do not have to. Each user is entitled
+//to either one difficulty or one difficulty and one comment per class, but not more than one. In the front end, I would imagine this working like voting 
+//and adding a comment if they so desire
 export async function addComment(poolConnection, userID, comment, termTaken, grade, classID, difficultyValue, qualityValue, professorID) {
     try {
         console.log("Adding comment: '"  + comment + "' to database");
@@ -127,6 +136,8 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
         VALUES ('${comment}', '${termTaken}', '${grade}', @maxCID, ${userID}, ${classID}, @maxID, CURRENT_TIMESTAMP);
 
         COMMIT;
+
+        SELECT * FROM Comments WHERE CommentID = @maxCID;
         `);
         return resultSet.recordset;
     } catch (err) {
@@ -136,7 +147,6 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
 }
 
 export async function addProfessor(poolConnection, name, universityID) {
-    //TODO: Test function
     try {
         console.log("Adding professor " + name + " to database");
         let resultSet = await poolConnection.request().query(
@@ -152,6 +162,8 @@ export async function addProfessor(poolConnection, name, universityID) {
             VALUES (@maxID, '${name}', ${universityID});
         
             COMMIT;
+
+            SELECT * FROM Professors WHERE ProfessorID = @maxID;
             `);
         return resultSet.recordset;
     } catch (err) {
@@ -161,7 +173,6 @@ export async function addProfessor(poolConnection, name, universityID) {
 }
 
 export async function addClassType(poolConnection, name, universityID) {
-    //TODO: Test function
     try {
         console.log("Adding class type " + name + " to database");
         let resultSet = await poolConnection.request().query(
@@ -177,6 +188,8 @@ export async function addClassType(poolConnection, name, universityID) {
             VALUES (@maxID, '${name}', ${universityID});
         
             COMMIT;
+
+            SELECT * FROM ClassType WHERE ClassTypeID = @maxID;
             `);
         return resultSet.recordset;
     } catch (err) {
@@ -216,6 +229,8 @@ export async function addDifficulty(poolConnection, difficultyValue, qualityValu
         VALUES (${classID}, @maxID);
 
         COMMIT;
+
+        SELECT * FROM Difficulty WHERE DifficultyID = @maxID;
         `);
         return resultSet.recordset;
     } catch (err) {

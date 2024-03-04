@@ -30,6 +30,7 @@ export async function deleteUser(poolConnection, userID) {
 
 //!Warning: VERY DANGEROUS FUNCTION -- YOU PROBABLY DON'T WANT TO USE THIS UNLESS YOU'RE USING TEST DATA
 export async function deleteUniversity(poolConnection, uniID) {
+    //TODO: Test function
     try {
         console.log("Deleting University " + uniID + " from database");
         let resultSet = await poolConnection.request().query(`
@@ -37,20 +38,20 @@ export async function deleteUniversity(poolConnection, uniID) {
 
         -- Start by deleting all of the tables that reference something that will be deleted
 
-        DELETE FROM [dbo].[Class_Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5));
-        DELETE FROM [dbo].[ClassType_Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5);
-        DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5));
-        DELETE FROM [dbo].[Class_Professors] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5));
-        DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5));
-        DELETE FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5));
-        DELETE FROM [dbo].[User_Comments] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = 5);
-        DELETE FROM [dbo].[User_Difficulty] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = 5);
-        DELETE FROM [dbo].[Users] WHERE UniID = 5;
+        DELETE FROM [dbo].[Class_Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[ClassType_Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID});
+        DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[Class_Professors] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[User_Comments] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
+        DELETE FROM [dbo].[User_Difficulty] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
+        DELETE FROM [dbo].[Users] WHERE UniID = ${uniID};
 
-        DELETE FROM [dbo].[Class] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = 5));
-        DELETE FROM [dbo].[ClassType] WHERE UniID = 5;
-        DELETE FROM [dbo].[Professors] WHERE UniID = 5;
-        DELETE FROM [dbo].[University] WHERE UniID = 5;
+        DELETE FROM [dbo].[Class] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[ClassType] WHERE UniID = ${uniID};
+        DELETE FROM [dbo].[Professors] WHERE UniID = ${uniID};
+        DELETE FROM [dbo].[University] WHERE UniID = ${uniID};
         
         COMMIT;
         `);
