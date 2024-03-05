@@ -1,0 +1,55 @@
+.form{
+    width: 30rem;
+    height: auto;
+    margin-top: 80px;
+    border-radius: 9px;
+    background-color: white;
+    box-shadow: 0px 4px 10px #aaaaaa;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.header{
+    padding-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.inputs {
+    padding-top: 20px;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center; /* Optional: Align inputs vertically at the center */
+    align-items: center; /* Optional: Align inputs horizontally at the center */
+    gap: 20px;
+}
+.input{
+    position: relative;
+    width: 100%;
+    padding: 8px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+}
+
+.loginButton{
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 85%;
+    height: 40px;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    border-radius: 7px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.loginButton:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+/*global css */
+body{
+    background-color: #f0f0f0;
+}
