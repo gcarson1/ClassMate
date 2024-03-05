@@ -28,6 +28,7 @@ export async function connect() {
     }
 }
 
+connect();
 //Test query function -> inputs a pool connection and returns a record set
 export async function testQuery(poolConnection) {
     try {
