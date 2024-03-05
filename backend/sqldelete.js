@@ -1,8 +1,8 @@
-//Contains all of the functions for deleting data from the database
-//TODO: Write a tree of dependencies to check
+// Contains all of the functions for deleting data from the database
+// Each function takes a poolConnection and the relevant ID as arguments and returns the number of rows affected
+
 
 export async function deleteUser(poolConnection, userID) {
-    //TODO: Test function
     try {
         console.log("Deleting user " + userID + " from database");
         let resultSet = await poolConnection.request().query(`
@@ -11,17 +11,19 @@ export async function deleteUser(poolConnection, userID) {
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
 
         DELETE FROM [dbo].[Class_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE UserID = ${userID});
-        DELETE FROM [dbo].[Class_Professor] WHERE ProfessorID IN (SELECT ProfessorID FROM [dbo].[Professors] WHERE UserID = ${userID});
+        DELETE FROM [dbo].[Class_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE UserID = ${userID});
 
-        DELETE FROM [dbo].[Users] WHERE UserID = ${userID};
         DELETE FROM [dbo].[User_Difficulty] WHERE UserID = ${userID};
         DELETE FROM [dbo].[User_Comments] WHERE UserID = ${userID};
+
+        DELETE FROM [dbo].[Users] WHERE UserID = ${userID};
         DELETE FROM [dbo].[Comments] WHERE UserID = ${userID};
         DELETE FROM [dbo].[Difficulty] WHERE UserID = ${userID};
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;
@@ -30,32 +32,34 @@ export async function deleteUser(poolConnection, userID) {
 
 //!Warning: VERY DANGEROUS FUNCTION -- YOU PROBABLY DON'T WANT TO USE THIS UNLESS YOU'RE USING TEST DATA
 export async function deleteUniversity(poolConnection, uniID) {
-    //TODO: Test function
     try {
         console.log("Deleting University " + uniID + " from database");
         let resultSet = await poolConnection.request().query(`
         BEGIN TRANSACTION;
 
-        -- Start by deleting all of the tables that reference something that will be deleted
-
+        -- Start by deleting records from tables that have no referencing foreign keys
         DELETE FROM [dbo].[Class_Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
         DELETE FROM [dbo].[ClassType_Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID});
+        DELETE FROM [dbo].[University] WHERE UniID = ${uniID};
+        
+        -- Next, delete records from tables that have referencing foreign keys
         DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
         DELETE FROM [dbo].[Class_Professors] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
-        DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
-        DELETE FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
-        DELETE FROM [dbo].[User_Comments] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
         DELETE FROM [dbo].[User_Difficulty] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
-        DELETE FROM [dbo].[Users] WHERE UniID = ${uniID};
-
+        DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        DELETE FROM [dbo].[User_Comments] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
+        DELETE FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
+        
+        -- Finally, delete from the main tables
+        DELETE FROM [dbo].[Professors] WHERE UniID = ${uniID};
         DELETE FROM [dbo].[Class] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
         DELETE FROM [dbo].[ClassType] WHERE UniID = ${uniID};
-        DELETE FROM [dbo].[Professors] WHERE UniID = ${uniID};
-        DELETE FROM [dbo].[University] WHERE UniID = ${uniID};
+        DELETE FROM [dbo].[Users] WHERE UniID = ${uniID};
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;
@@ -63,7 +67,6 @@ export async function deleteUniversity(poolConnection, uniID) {
 }
 
 export async function deleteClass(poolConnection, classID) {
-    //TODO: Test function
     try {
         console.log("Deleting class " + classID + " from database");
         let resultSet = await poolConnection.request().query(`
@@ -84,7 +87,8 @@ export async function deleteClass(poolConnection, classID) {
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;
@@ -101,14 +105,15 @@ export async function deleteComment(poolConnection, commentID) {
         DELETE FROM [dbo].[User_Comments] WHERE CommentID = ${commentID};
         DELETE FROM [dbo].[Class_Comments] WHERE CommentID = ${commentID};
         DELETE FROM [dbo].[User_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
-        DELETE FROM [dbo].[Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
         DELETE FROM [dbo].[Class_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
+        DELETE FROM [dbo].[Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
 
         DELETE FROM [dbo].[Comments] WHERE CommentID = ${commentID};
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;
@@ -116,7 +121,6 @@ export async function deleteComment(poolConnection, commentID) {
 }
 
 export async function deleteProfessor(poolConnection, professorID) {
-    //TODO: Test function
     try {
         console.log("Deleting professor " + professorID + " from database");
         let resultSet = await poolConnection.request().query(`
@@ -135,7 +139,8 @@ export async function deleteProfessor(poolConnection, professorID) {
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;
@@ -143,9 +148,8 @@ export async function deleteProfessor(poolConnection, professorID) {
 }
 
 export async function deleteClassType(poolConnection, classTypeID) {
-    //TODO: Test function
     try {
-        console.log("Deleting user " + classTypeID + " from database");
+        console.log("Deleting class type " + classTypeID + " from database");
         let resultSet = await poolConnection.request().query(`
         BEGIN TRANSACTION;
 
@@ -156,7 +160,7 @@ export async function deleteClassType(poolConnection, classTypeID) {
 
         DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
         DELETE FROM [dbo].[Class_Professors] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
-        DELETE FROM [dbo].[Class_Comments] ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
+        DELETE FROM [dbo].[Class_Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
         DELETE FROM [dbo].[ClassType_Class] WHERE ClassTypeID = ${classTypeID};
 
         DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
@@ -167,7 +171,8 @@ export async function deleteClassType(poolConnection, classTypeID) {
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;
@@ -175,7 +180,6 @@ export async function deleteClassType(poolConnection, classTypeID) {
 }
 
 export async function deleteDifficulty(poolConnection, difficultyID) {
-    //TODO: Test function
     try {
         console.log("Deleting difficulty " + difficultyID + " from database");
         let resultSet = await poolConnection.request().query(`
@@ -193,7 +197,8 @@ export async function deleteDifficulty(poolConnection, difficultyID) {
         
         COMMIT;
         `);
-        return resultSet.recordset;
+        console.log("Number of rows affected: " + resultSet.rowsAffected.reduce((a, b) => a + b, 0));
+        return resultSet.rowsAffected.reduce((a, b) => a + b, 0);
     } catch (err) {
         console.error(err.message);
         return null;

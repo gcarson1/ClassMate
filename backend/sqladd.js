@@ -1,9 +1,7 @@
 //Contains all of the functions for adding data to the database
-
-//! None of these functions have been tested yet; they are just placeholders for now
+// Each function takes in a poolConnection and the necessary parameters for the data to be added and returns the resulting recordset, which is the data that was added to the database
 
 export async function addUser(poolConnection, username, password, email, uniID) {
-    //TODO: Test function
     try {
         console.log("Adding user " + username + " to database");
         let resultSet = await poolConnection.request().query(`
@@ -62,7 +60,6 @@ export async function addUniversity(poolConnection, name) {
 }
 
 export async function addClass(poolConnection, className, classNum, classTypeID) {
-    //TODO: Test function
     try {
         console.log("Adding class " + className + " to database");
         let resultSet = await poolConnection.request().query(`
@@ -111,32 +108,39 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
         INSERT INTO [dbo].[Difficulty] (DifficultyID, DifficultyValue, ProfessorID, UserID, ClassID, QualityValue) 
         VALUES (@maxID, ${difficultyValue}, ${professorID}, ${userID}, ${classID}, ${qualityValue});
 
-        -- Junction table Class_Professor
+        -- Junction table Class_Professors (if needed)
 
-        INSERT INTO [dbo].[Class_Professor] (ClassID, ProfessorID)
-        VALUES (${classID}, ${professorID});
+        MERGE INTO [dbo].[Class_Professors] AS target
+        USING (VALUES (${classID}, ${professorID})) AS source (ClassID, ProfessorID)
+        ON (target.ClassID = source.ClassID AND target.ProfessorID = source.ProfessorID)
+        WHEN NOT MATCHED THEN
+            INSERT (ClassID, ProfessorID)
+            VALUES (source.ClassID, source.ProfessorID);
 
         -- Junction table User_Difficulty
-
         INSERT INTO [dbo].[User_Difficulty] (UserID, DifficultyID)
         VALUES (${userID}, @maxID);
 
         -- Junction table Class_Difficulty
-
         INSERT INTO [dbo].[Class_Difficulty] (ClassID, DifficultyID)
         VALUES (${classID}, @maxID);
 
         -- Now adding the comment
-
         DECLARE @maxCID INT;
         SELECT @maxCID = MAX(CommentID) FROM Comments;
-        SET @maxCID = ISNULL(@maxID, 0) + 1;
+        SET @maxCID = ISNULL(@maxCID, 0) + 1;
 
         INSERT INTO [dbo].[Comments] (Comment, TermTaken, Grade, CommentID, UserID, ClassID, DifficultyID, PostDate) 
         VALUES ('${comment}', '${termTaken}', '${grade}', @maxCID, ${userID}, ${classID}, @maxID, CURRENT_TIMESTAMP);
 
+        -- Junction table User_Comments
+        INSERT INTO [dbo].[User_Comments] (UserID, CommentID)
+        VALUES (${userID}, @maxCID);
+
+        -- Commit the transaction
         COMMIT;
 
+        -- Select the details of the newly added comment
         SELECT * FROM Comments WHERE CommentID = @maxCID;
         `);
         return resultSet.recordset;
@@ -199,37 +203,40 @@ export async function addClassType(poolConnection, name, universityID) {
 }
 
 export async function addDifficulty(poolConnection, difficultyValue, qualityValue, userID, classID, professorID) {
-    //TODO: Test function
     try {
         console.log("Adding Difficulty of " + difficultyValue + " and quality " + qualityValue + " to database");
         let resultSet = await poolConnection.request().query(`
         -- Begin a transaction to ensure atomicity
         BEGIN TRANSACTION;
-        
+
         DECLARE @maxID INT;
         SELECT @maxID = MAX(DifficultyID) FROM Difficulty;
         SET @maxID = ISNULL(@maxID, 0) + 1;
 
+        -- Adding a new difficulty
         INSERT INTO [dbo].[Difficulty] (DifficultyID, DifficultyValue, ProfessorID, UserID, ClassID, QualityValue) 
         VALUES (@maxID, ${difficultyValue}, ${professorID}, ${userID}, ${classID}, ${qualityValue});
 
-        -- Junction table Class_Professor
-
-        INSERT INTO [dbo].[Class_Professor] (ClassID, ProfessorID)
-        VALUES (${classID}, ${professorID});
+        -- Junction table Class_Professors (if needed)
+        MERGE INTO [dbo].[Class_Professors] AS target
+        USING (VALUES (${classID}, ${professorID})) AS source (ClassID, ProfessorID)
+        ON (target.ClassID = source.ClassID AND target.ProfessorID = source.ProfessorID)
+        WHEN NOT MATCHED THEN
+            INSERT (ClassID, ProfessorID)
+            VALUES (source.ClassID, source.ProfessorID);
 
         -- Junction table User_Difficulty
-
         INSERT INTO [dbo].[User_Difficulty] (UserID, DifficultyID)
         VALUES (${userID}, @maxID);
 
         -- Junction table Class_Difficulty
-
         INSERT INTO [dbo].[Class_Difficulty] (ClassID, DifficultyID)
         VALUES (${classID}, @maxID);
 
+        -- Commit the transaction
         COMMIT;
 
+        -- Select the details of the newly added difficulty
         SELECT * FROM Difficulty WHERE DifficultyID = @maxID;
         `);
         return resultSet.recordset;
