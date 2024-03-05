@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { getUniversities, connect } from './sqlconnect.js';
+import {connect } from './sqlconnect.js';
+import {getUniversities, getClassInfo} from './sqlquery.js'
 import { addUniversity, addClassType, addComment, addClass, addDifficulty, addProfessor, addUser } from './sqladd.js';
 import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDifficulty, deleteProfessor, deleteUser } from './sqldelete.js';
 
@@ -12,7 +13,12 @@ let poolConnection = await connect();
 
 app.get('/universities', async (req, res) => {
     let record = await getUniversities(poolConnection);
-    console.log(record);
+    res.json(record);
+});
+
+app.get('/classes/:classID', async (req, res) => {
+
+    let record = await getClassInfo(poolConnection, req.params.classID);
     res.json(record);
 });
 

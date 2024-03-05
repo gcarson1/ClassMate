@@ -16,7 +16,6 @@ const config = {
     }
 }
 
-//create any query functions here
 // close connection only when we're certain application is finished
 
 //Connect to the database -> returns a pool connection
@@ -30,7 +29,7 @@ export async function connect() {
 }
 
 //Test query function -> inputs a pool connection and returns a record set
-async function testQuery(poolConnection) {
+export async function testQuery(poolConnection) {
     try {
         console.log("Reading rows from the Table...");
         let resultSet = await poolConnection.request().query(`SELECT * FROM [dbo].[Dummy]`);
@@ -56,18 +55,6 @@ async function testQuery(poolConnection) {
     }
 }
 
-export async function getUniversities(poolConnection) {
-    try {
-        console.log("requesting all Universities")
-        let resultSet = await poolConnection.request().query("SELECT * FROM [dbo].[University]");
-        return resultSet.recordset;
-    } catch (err) {
-        console.error(err.message);
-        return null;
-    }
-}
-
-
 //Close the connection
 export async function closeConnection(poolConnection) {
     try {
@@ -76,5 +63,3 @@ export async function closeConnection(poolConnection) {
         console.error(err.message);
     }
 }
-
-export default testQuery // export any query function created like this
