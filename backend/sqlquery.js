@@ -17,7 +17,7 @@ export async function getUniversities(poolConnection) {
 // TODO: Finish
 export async function getClassInfo(poolConnection, classID) {
     try {
-        console.log("requesting class info")
+        console.log("requesting class info for classID: " + classID);
         let resultSet = await poolConnection.request().query(`
         SELECT d.*, c.*, cl.*
         FROM Difficulty d
