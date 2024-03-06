@@ -17,8 +17,7 @@ app.get('/universities', async (req, res) => {
 });
 
 app.get('/classes/:classID', async (req, res) => {
-
-    let record = await getClassInfo(poolConnection, req.params.classID);
+    let record = await getClassInfo(poolConnection, req.params.classID, "University of Tennessee, Knoxville"); //The uniname is a placeholder for the university name
     res.json(record);
 });
 

@@ -13,17 +13,30 @@ export async function getUniversities(poolConnection) {
 }
 
 // given a certain class, returns all data necessary for that class
-// this involves getting all comments, professors, and difficulties for that class
-// TODO: Finish
-export async function getClassInfo(poolConnection, classID) {
+// this involves getting all comments and difficulties for that class
+export async function getClassInfo(poolConnection, classID, uniName) {
     try {
         console.log("requesting class info for classID: " + classID);
         let resultSet = await poolConnection.request().query(`
-        SELECT d.*, c.*, cl.*
-        FROM Difficulty d
+        WITH 
+            fullclassname (ClassID, ClassType, ClassName, ClassNum, UniName) AS (
+                SELECT c.ClassID, ct.ClassType, c.ClassName, c.ClassNum, u.UniName
+                FROM ClassType ct
+                LEFT JOIN Class c ON c.ClassTypeID = ct.ClassTypeID
+                LEFT JOIN University u ON ct.UniID = u.UniID
+            ),
+            fulldiffname (DifficultyID, DifficultyValue, QualityValue, ProfessorName, UserName, ClassID) AS (
+                SELECT d.DifficultyID, d.DifficultyValue, d.QualityValue, p.Name, u.UserName, d.ClassID
+                FROM Difficulty d
+                LEFT JOIN Professors p ON d.ProfessorID = p.ProfessorID
+                LEFT JOIN Users u ON d.UserID = u.UserID
+            )
+
+        SELECT d.DifficultyValue, d.QualityValue, d.ProfessorName, d.UserName, c.Comment, c.TermTaken, c.Grade, c.PostDate, cl.ClassType, cl.ClassName, cl.ClassNum, cl.UniName
+        FROM fulldiffname d
         LEFT JOIN Comments c ON d.DifficultyID = c.DifficultyID
-        LEFT JOIN Class cl ON d.ClassID = cl.ClassID
-        WHERE d.ClassID = ${classID};
+        LEFT JOIN fullclassname cl ON d.ClassID = cl.ClassID
+        WHERE d.ClassID = ${classID} AND UniName = '${uniName}'
         `);
         return resultSet.recordset;
     } catch (err) {
