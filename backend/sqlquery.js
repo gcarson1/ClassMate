@@ -14,13 +14,13 @@ export async function getUniversities(poolConnection) {
 
 // given a certain class, returns all data necessary for that class
 // this involves getting all comments and difficulties for that class
-export async function getClassInfo(poolConnection, classID, uniName) {
+export async function getClassInfo(poolConnection, classID, uniID) {
     try {
-        console.log("requesting class info for classID: " + classID);
+        console.log("requesting class info for classID " + classID + " at university " + uniID);
         let resultSet = await poolConnection.request().query(`
         WITH 
-            fullclassname (ClassID, ClassType, ClassName, ClassNum, UniName) AS (
-                SELECT c.ClassID, ct.ClassType, c.ClassName, c.ClassNum, u.UniName
+            fullclassname (ClassID, ClassType, ClassName, ClassNum, UniName, UniID) AS (
+                SELECT c.ClassID, ct.ClassType, c.ClassName, c.ClassNum, u.UniName, u.UniID
                 FROM ClassType ct
                 LEFT JOIN Class c ON c.ClassTypeID = ct.ClassTypeID
                 LEFT JOIN University u ON ct.UniID = u.UniID
@@ -36,7 +36,7 @@ export async function getClassInfo(poolConnection, classID, uniName) {
         FROM fulldiffname d
         LEFT JOIN Comments c ON d.DifficultyID = c.DifficultyID
         LEFT JOIN fullclassname cl ON d.ClassID = cl.ClassID
-        WHERE d.ClassID = ${classID} AND UniName = '${uniName}'
+        WHERE d.ClassID = ${classID} AND cl.UniID = '${uniID}'
         `);
         return resultSet.recordset;
     } catch (err) {
