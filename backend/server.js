@@ -15,8 +15,7 @@ let lastActivity = Date.now();
 const inactivityTime = 60 * 1000 * 10; // 10 minutes
 
 // Schedule cron job to close connection after 10 minutes of inactivity
-//TODO: ERROR CRECK RECONNECTION
-cron.schedule('* * * * *', () => {
+cron.schedule('*/10 * * * *', () => {
     console.log('Checking for inactivity ' + (Date.now() - lastActivity) / 1000);
     if ((Date.now() - lastActivity) >= inactivityTime) {
         console.log('True')
@@ -27,14 +26,16 @@ cron.schedule('* * * * *', () => {
 
 // Gets universities from the database
 app.get('/universities', async (req, res) => {
-    poolConnection = reopenConnection(poolConnection, lastActivity); // maybe put this in each query function?
+    reopenConnection(poolConnection);
+    lastActivity = Date.now();
     let record = await getUniversities(poolConnection);
     res.json(record);
 });
 
 // Gets all class info and comments for a specific class at a specific university
 app.get('/uni:uniID/class:classID', async (req, res) => {
-    poolConnection = reopenConnection(poolConnection, lastActivity);
+    reopenConnection(poolConnection);
+    lastActivity = Date.now();
     let record = await getClassInfo(poolConnection, req.params.classID, req.params.uniID); //The uniname is a placeholder for the university name
     res.json(record);
 });
@@ -44,6 +45,6 @@ app.listen(7071, () => {
 });
 
 
-app.get('/debug', async (req, res) => {
-    res.json({message: (Date.now()-lastActivity)/1000});
+app.get('/activity', async (req, res) => {
+    res.json({'Time inactive (minutes)': ((Date.now() - lastActivity) / 1000 / 60).toFixed(3)});
 });

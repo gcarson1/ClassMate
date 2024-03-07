@@ -25,18 +25,22 @@ export async function connect() {
         return poolConnection;
     } catch (err) {
         console.error(err.message);
+        console.log("Error connecting")
     }
 }
 
 // Function to reopen the connection after inactivity
-export async function reopenConnection(connection, lastActivity) {
-    if (!connection || connection._closed) {
-        connection = await connect();
-        console.log('Connection reopened');
+export async function reopenConnection(poolConnection) {
+    try {
+        if (poolConnection && !poolConnection.connected) {
+            await poolConnection.connect();
+        }
+    } catch (err) {
+        console.error(err.message);
+        console.log("Error reconnecting");
     }
-    lastActivity = Date.now();
-    return connection;
 }
+
 
 //Test query function -> inputs a pool connection and returns a record set
 export async function testQuery(poolConnection) {
