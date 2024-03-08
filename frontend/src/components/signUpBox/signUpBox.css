@@ -18,78 +18,51 @@
     padding-left: 120px;
 }
 
-.username-container{
+.entryarea-container{
+    position: relative;
+    margin-top: -7%;
+    padding-left: 85px;
+    height: 300px;
     width: 200px;
-    padding-left: 90px;
-    padding-top: 0px;
 }
 
 .username-entryarea{
     position: relative;
-    height: 80px;
+    height: 50px;
     line-height: 80px;
-}
-
-.email-container{
-    margin: -40%;
-    width: 200px;
-    padding-left: 250px;
-    padding-top: 130px;
 }
 
 .email-entryarea{
     position: relative;
-    height: 80px;
+    height: 50px;
     line-height: 80px;
 }
 
-.password-container{
-    margin: -10%;
-    width: 200px;
-    padding-left: 130px;
-    padding-top: 130px;
-}
 
 .password-entryarea{
     position: relative;
-    height: 80px;
+    height: 50px;
     line-height: 80px;
-}
-
-.confirmPassword-container{
-    margin: -50%;
-    width: 200px;
-    padding-left: 290px;
-    padding-top: 170px;
 }
 
 .confirmPassword-entryarea{
     position: relative;
-    height: 80px;
+    height: 50px;
     line-height: 80px;
 }
 
 .input{
     position: absolute;
-    padding: 5px;
-    width: 100%;
+    width: 40%;
     font-size: 13px;
     border-radius: 7px;
     z-index: 1111;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.signUpBox-barrier{
-    display: flex;
-    position: fixed;
-    padding-top: 300px;
-    padding-left: 25px;
-}
-
 .signUpBox-signup {
     display: flex;
-    padding-top: 140px;
-    padding-left: 145px;
+    padding-left: 60px;
 }
 
 .signUpBox-signup-text {
@@ -111,31 +84,35 @@
     border: solid black;    
 }
 
+.signUpBox-barrier{
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    position: fixed;
+    padding-top: 300px;
+    padding-left: 25px;
+}
+
 .signUpBox-barrier-text{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    padding-top: 25px;
-}
-
-.signUpBox-pre-existing {
-    padding-top: 20px;
-    padding-left: 105px;
+    margin-top: -10%;
+    padding-left: 25px;
 }
 
 .signUpBox-pre-existing-text {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     color: gray;
-}
-
-.signUpBox-login {
-    margin: -10%;
-    padding-left: 194px;
+    margin-top: -10%;
+    padding-left: 100px;
 }
 
 .signUpBox-login-text {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 21px;
+    margin-top: -10%;
+    padding-left: 150px;
 }
 
 .signUpBox-login-text:hover {
