@@ -44,3 +44,20 @@ export async function getClassInfo(poolConnection, classID, uniID) {
         return null;
     }
 }
+
+export async function getClassesByUniAndType(poolConnection, uniID, classTypeID) {
+    try {
+        console.log("requesting class info for classTypeID " + classTypeID + " at university " + uniID);
+        let resultSet = await poolConnection.request().query(`
+        SELECT ct.ClassType, c.ClassNum, c.ClassName
+        FROM [dbo].[ClassType] ct
+        INNER JOIN [dbo].[Class] c ON c.ClassTypeID = ct.ClassTypeID
+        WHERE ct.UniID = ${uniID} AND ct.ClassTypeID = ${classTypeID}
+        ORDER BY ct.ClassType, c.ClassNum
+        `);
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}
