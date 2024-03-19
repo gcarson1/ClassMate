@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
-import {connect, closeConnection, reopenConnection} from './sqlconnect.js';
+import {connect, closeConnection, reopenConnection, testQuery} from './sqlconnect.js';
 import {getUniversities, getClassInfo, getClassesByUniAndType} from './sqlquery.js'
 import { addUniversity, addClassType, addComment, addClass, addDifficulty, addProfessor, addUser } from './sqladd.js';
 import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDifficulty, deleteProfessor, deleteUser } from './sqldelete.js';

@@ -46,7 +46,7 @@ export async function reopenConnection(poolConnection) {
 export async function testQuery(poolConnection) {
     try {
         console.log("Reading rows from the Table...");
-        let resultSet = await poolConnection.request().query(`SELECT * FROM [dbo].[Dummy]`);
+        let resultSet = await poolConnection.request().query(`SELECT * FROM [dbo].[University]`);
 
         console.log(`${resultSet.recordset.length} rows returned.`);
 
@@ -59,7 +59,7 @@ export async function testQuery(poolConnection) {
 
         // ouput row contents from default record set
         resultSet.recordset.forEach(row => {
-            console.log("%s   %s   %s", row.ID, row.Name, row.Age);
+            console.log("%s   %s", row.UniID, row.UniName);
         });
 
         return resultSet.recordset;

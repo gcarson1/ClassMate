@@ -72,11 +72,6 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 
         INSERT INTO [dbo].[Class] (ClassID, ClassName, ClassNum, ClassTypeID) 
         VALUES (@maxID, '${className}', ${classNum}, ${classTypeID});
-        
-        -- Junction table ClassType_Class
-
-        INSERT INTO [dbo].[ClassType_Class] (ClassTypeID, ClassID)
-        VALUES (${classTypeID}, @maxID);
 
         COMMIT;
 
@@ -117,14 +112,6 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
             INSERT (ClassID, ProfessorID)
             VALUES (source.ClassID, source.ProfessorID);
 
-        -- Junction table User_Difficulty
-        INSERT INTO [dbo].[User_Difficulty] (UserID, DifficultyID)
-        VALUES (${userID}, @maxID);
-
-        -- Junction table Class_Difficulty
-        INSERT INTO [dbo].[Class_Difficulty] (ClassID, DifficultyID)
-        VALUES (${classID}, @maxID);
-
         -- Now adding the comment
         DECLARE @maxCID INT;
         SELECT @maxCID = MAX(CommentID) FROM Comments;
@@ -132,10 +119,6 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
 
         INSERT INTO [dbo].[Comments] (Comment, TermTaken, Grade, CommentID, UserID, ClassID, DifficultyID, PostDate) 
         VALUES ('${comment}', '${termTaken}', '${grade}', @maxCID, ${userID}, ${classID}, @maxID, CURRENT_TIMESTAMP);
-
-        -- Junction table User_Comments
-        INSERT INTO [dbo].[User_Comments] (UserID, CommentID)
-        VALUES (${userID}, @maxCID);
 
         -- Commit the transaction
         COMMIT;
@@ -224,14 +207,6 @@ export async function addDifficulty(poolConnection, difficultyValue, qualityValu
         WHEN NOT MATCHED THEN
             INSERT (ClassID, ProfessorID)
             VALUES (source.ClassID, source.ProfessorID);
-
-        -- Junction table User_Difficulty
-        INSERT INTO [dbo].[User_Difficulty] (UserID, DifficultyID)
-        VALUES (${userID}, @maxID);
-
-        -- Junction table Class_Difficulty
-        INSERT INTO [dbo].[Class_Difficulty] (ClassID, DifficultyID)
-        VALUES (${classID}, @maxID);
 
         -- Commit the transaction
         COMMIT;

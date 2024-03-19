@@ -9,13 +9,7 @@ export async function deleteUser(poolConnection, userID) {
         BEGIN TRANSACTION;
 
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
-
-        DELETE FROM [dbo].[Class_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE UserID = ${userID});
-        DELETE FROM [dbo].[Class_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE UserID = ${userID});
-
-        DELETE FROM [dbo].[User_Difficulty] WHERE UserID = ${userID};
-        DELETE FROM [dbo].[User_Comments] WHERE UserID = ${userID};
-
+        
         DELETE FROM [dbo].[Users] WHERE UserID = ${userID};
         DELETE FROM [dbo].[Comments] WHERE UserID = ${userID};
         DELETE FROM [dbo].[Difficulty] WHERE UserID = ${userID};
@@ -38,16 +32,11 @@ export async function deleteUniversity(poolConnection, uniID) {
         BEGIN TRANSACTION;
 
         -- Start by deleting records from tables that have no referencing foreign keys
-        DELETE FROM [dbo].[Class_Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
-        DELETE FROM [dbo].[ClassType_Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID});
         DELETE FROM [dbo].[University] WHERE UniID = ${uniID};
         
         -- Next, delete records from tables that have referencing foreign keys
-        DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
         DELETE FROM [dbo].[Class_Professors] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
-        DELETE FROM [dbo].[User_Difficulty] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
         DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
-        DELETE FROM [dbo].[User_Comments] WHERE UserID IN (SELECT UserID FROM [dbo].[Users] WHERE UniID = ${uniID});
         DELETE FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID IN (SELECT ClassTypeID FROM [dbo].[ClassType] WHERE UniID = ${uniID}));
         
         -- Finally, delete from the main tables
@@ -74,13 +63,8 @@ export async function deleteClass(poolConnection, classID) {
 
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
 
-        DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID = ${classID};
         DELETE FROM [dbo].[Class_Professors] WHERE ClassID = ${classID};
-        DELETE FROM [dbo].[Class_Comments] WHERE ClassID = ${classID};
-        DELETE FROM [dbo].[ClassType_Class] WHERE ClassID = ${classID};
-        DELETE FROM [dbo].[User_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE ClassID = ${classID});
-        DELETE FROM [dbo].[User_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ClassID = ${classID});
-
+        
         DELETE FROM [dbo].[Difficulty] WHERE ClassID = ${classID};
         DELETE FROM [dbo].[Comments] WHERE ClassID = ${classID};
         DELETE FROM [dbo].[Class] WHERE ClassID = ${classID};
@@ -102,10 +86,6 @@ export async function deleteComment(poolConnection, commentID) {
         BEGIN TRANSACTION;
 
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
-        DELETE FROM [dbo].[User_Comments] WHERE CommentID = ${commentID};
-        DELETE FROM [dbo].[Class_Comments] WHERE CommentID = ${commentID};
-        DELETE FROM [dbo].[User_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
-        DELETE FROM [dbo].[Class_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
         DELETE FROM [dbo].[Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Comments] WHERE CommentID = ${commentID});
 
         DELETE FROM [dbo].[Comments] WHERE CommentID = ${commentID};
@@ -128,12 +108,8 @@ export async function deleteProfessor(poolConnection, professorID) {
 
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
         DELETE FROM [dbo].[Class_Professors] WHERE ProfessorID = ${professorID};
-        DELETE FROM [dbo].[Class_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID});
-        DELETE FROM [dbo].[User_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID}));
-        DELETE FROM [dbo].[Class_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID}));
-        DELETE FROM [dbo].[Comments] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID});
-        DELETE FROM [dbo].[User_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID});
         
+        DELETE FROM [dbo].[Comments] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID});
         DELETE FROM [dbo].[Difficulty] WHERE ProfessorID = ${professorID};
         DELETE FROM [dbo].[Professors] WHERE ProfessorID = ${professorID};
         
@@ -154,15 +130,9 @@ export async function deleteClassType(poolConnection, classTypeID) {
         BEGIN TRANSACTION;
 
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
-
-        DELETE FROM [dbo].[User_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID}));
-        DELETE FROM [dbo].[User_Difficulty] WHERE DifficultyID IN (SELECT DifficultyID FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID}));
-
-        DELETE FROM [dbo].[Class_Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
+        
         DELETE FROM [dbo].[Class_Professors] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
-        DELETE FROM [dbo].[Class_Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
-        DELETE FROM [dbo].[ClassType_Class] WHERE ClassTypeID = ${classTypeID};
-
+        
         DELETE FROM [dbo].[Difficulty] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
         DELETE FROM [dbo].[Comments] WHERE ClassID IN (SELECT ClassID FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID});
         DELETE FROM [dbo].[Class] WHERE ClassTypeID = ${classTypeID};
@@ -186,13 +156,7 @@ export async function deleteDifficulty(poolConnection, difficultyID) {
         BEGIN TRANSACTION;
 
         -- Start by deleting all of the junction tables that reference something that will be deleted (difficulty, comment)
-        DELETE FROM [dbo].[User_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE DifficultyID = ${difficultyID});
-        DELETE FROM [dbo].[Class_Comments] WHERE CommentID IN (SELECT CommentID FROM [dbo].[Comments] WHERE DifficultyID = ${difficultyID});
-
-        DELETE FROM [dbo].[Class_Difficulty] WHERE DifficultyID = ${difficultyID};
-        DELETE FROM [dbo].[User_Difficulty] WHERE DifficultyID = ${difficultyID};
         DELETE FROM [dbo].[Comments] WHERE DifficultyID = ${difficultyID};
-        
         DELETE FROM [dbo].[Difficulty] WHERE DifficultyID = ${difficultyID};
         
         COMMIT;
