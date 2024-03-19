@@ -3,7 +3,7 @@
 // Returns all universities in the database
 export async function getUniversities(poolConnection) {
     try {
-        console.log("requesting all Universities")
+        //console.log("requesting all Universities")
         let resultSet = await poolConnection.request().query("SELECT * FROM [dbo].[University]");
         return resultSet.recordset;
     } catch (err) {
