@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react"
+import React, { useState, createContext } from "react"
+
 import "./App.css"
 
 import {
@@ -16,6 +17,8 @@ import Login from "./pages/Login"
 import UniversityPage from "./pages/UniversityPage";
 
 
+export const LoginContext = createContext();
+ 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<NavBar />}>
@@ -25,13 +28,18 @@ const router = createBrowserRouter(
           <Route path="/University" >
             <Route path=":id" element={<UniversityPage />}/>
           </Route>
-        </Route>        
+        </Route>    
+        
     )
-)
+);
 
 function App() {
+const [loggedIn, setLoggedIn] = useState(false);
+  
   return (
+  <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
     <RouterProvider router={router} />
+  </LoginContext.Provider> 
   )
 }
 

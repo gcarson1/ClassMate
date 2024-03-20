@@ -1,6 +1,8 @@
 import './signUpBox.css'
 import { NavLink } from "react-router-dom"
 
+
+//ended up not using this one because it had more fields than we needed
 const SignUpBox = () => {
     return (
         <div className="signUpBox-container">
