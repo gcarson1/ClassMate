@@ -45,6 +45,22 @@ export async function getClassInfo(poolConnection, classID, uniID) {
     }
 }
 
+export async function getAllClassesByUni(poolConnection, uniID) {
+    try {
+        console.log("requesting all classes at university " + uniID);
+        let resultSet = await poolConnection.request().query(`
+        SELECT c.ClassID, ct.ClassType, c.ClassNum, c.ClassName, CONCAT(ct.ClassType, ' ', c.ClassNum, ': ', c.ClassName) AS FullName
+        FROM [dbo].[Class] c
+        INNER JOIN [dbo].[ClassType] ct ON c.ClassTypeID = ct.ClassTypeID
+        WHERE ct.UniID = ${uniID}
+        `);
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}
+
 export async function getClassesByUniAndType(poolConnection, uniID, classTypeID) {
     try {
         console.log("requesting class info for classTypeID " + classTypeID + " at university " + uniID);

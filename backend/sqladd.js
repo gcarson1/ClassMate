@@ -1,7 +1,7 @@
 //Contains all of the functions for adding data to the database
 // Each function takes in a poolConnection and the necessary parameters for the data to be added and returns the resulting recordset, which is the data that was added to the database
 
-export async function addUser(poolConnection, username, password, email, uniID) {
+export async function addUser(poolConnection, username, email, uniID) {
     try {
         console.log("Adding user " + username + " to database");
         let resultSet = await poolConnection.request().query(`
@@ -17,7 +17,7 @@ export async function addUser(poolConnection, username, password, email, uniID) 
             
             -- Step 3: Insert the new user into the table
             INSERT INTO [dbo].[Users] (UserID, Username, Password, Email, UniID) 
-            VALUES (@maxUserID, '${username}', '${password}', '${email}', ${uniID});
+            VALUES (@maxUserID, '${username}', '${email}', ${uniID});
             
             -- Step 4: Commit the transaction
             COMMIT;
