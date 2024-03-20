@@ -11,13 +11,21 @@ const NavBar = () => {
   //const loggedIn = useContext(LoginContext);
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
+
   useEffect(() => {
-    console.log(loggedIn);
-  })
+    const storedLoggedIn = localStorage.getItem('loggedIn');
+    if (storedLoggedIn !== null) {
+      setLoggedIn(JSON.parse(storedLoggedIn));
+    }
+  }, [setLoggedIn]);
 
   const logout = async () => {
     await signOut(auth);
-    setLoggedIn(false);
+    const isLoggedIn = false;
+      setLoggedIn(isLoggedIn);
+      localStorage.setItem("loggedIn", isLoggedIn);
+    console.log("navBar setting logged in to " + loggedIn);
+    console.log("saved " + localStorage.getItem('loggedIn') + " into local storage")
   }
 
   return (
@@ -25,11 +33,16 @@ const NavBar = () => {
       <header className="navBar-container">
         <div className="navBar-logo">
           <NavLink to="/">
-            <img src="../public/images/favicon.ico" alt="ClassMateLogo" />
+            <img className="logo" src="../public/images/favicon.ico" alt="ClassMateLogo" />
           </NavLink>
         </div>
         <div className="navBar-header">
-          <h1 className="navBar-header-text">ClassMate</h1>
+          {loggedIn ? (
+            <h1 className="navBar-header-text">Hello User!</h1>
+          ) : (
+            <h1 className="navBar-header-text">ClassMate</h1>
+          )}
+          
         </div>
         <div className="navBar-buttons">
           {loggedIn ? (

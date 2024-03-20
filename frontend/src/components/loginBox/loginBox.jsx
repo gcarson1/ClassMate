@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, useContext } from "react"
 import "./loginBox.css"
 import { auth } from "../../../fireBase-config"
@@ -15,6 +16,7 @@ export default function LoginBox() {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const[loggedIn, setLoggedIn] = useContext(LoginContext);
+  const [error, setError] = useState(null); // State variable for error message
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
@@ -23,12 +25,16 @@ export default function LoginBox() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoggedIn(!!currentUser);
+      const isLoggedIn = !!currentUser;
+      setLoggedIn(isLoggedIn);
+      localStorage.setItem("loggedIn", isLoggedIn); //saving logged In state to local storage to persist through refreshes and navigation
+      console.log("login page setting logged in to " + loggedIn);
+      console.log("saving " + localStorage.getItem('loggedIn') + " into local storage");
     });
 
     // Cleanup function to unsubscribe when component unmounts
     return () => unsubscribe();
-  }, [setLoggedIn]); // Empty dependency array means this effect runs only once on mount
+  }, [loggedIn, setLoggedIn]); // Empty dependency array means this effect runs only once on mount
 
 
 const Login = async () => {
@@ -39,10 +45,12 @@ const Login = async () => {
         loginPassword,
     );
     console.log(user);
+    
     navigate("/");
 
 } catch (error) {
     console.log(error.message);
+    setError(error.message);
 }
     }
 
@@ -61,8 +69,8 @@ const Login = async () => {
           }}></input> 
         </div>
         <button className="loginButton" onClick={Login}>Submit</button>
-        {/* Display user email if user is logged in */}
-      <p>User Logged in: {loggedIn ? user.email : "Not logged in"}</p>
+        {error && <p className="error-message">{error}</p>}
+      
     </div>
   )
 }

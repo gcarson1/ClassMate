@@ -13,6 +13,7 @@ export default function SignUpBox2() {
   const [signUpPassword, setSignUpPassword] = useState("");
   // eslint-disable-next-line no-unused-vars
   const[loggedIn, setLoggedIn] = useContext(LoginContext);
+  const [error, setError] = useState(null); // State variable for error message
 
   const [user, setUser] = useState({});
   
@@ -21,12 +22,15 @@ export default function SignUpBox2() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoggedIn(!!currentUser);
+      const isLoggedIn = !!currentUser;
+      setLoggedIn(isLoggedIn);
+      localStorage.setItem("loggedIn", loggedIn); //saving logged In state to local storage to persist through refreshes and navigation
+      console.log("signup page setting loggedIn to " + isLoggedIn);
     });
 
     // Cleanup function to unsubscribe when component unmounts
     return () => unsubscribe();
-  }, [setLoggedIn]); // Empty dependency array means this effect runs only once on mount
+  }, [setLoggedIn, loggedIn]); // Empty dependency array means this effect runs only once on mount
 
 
 const signUp = async () => {
@@ -47,6 +51,7 @@ const signUp = async () => {
 
     } catch (error) {
         console.log(error.message);
+        setError(error.message);
     }
 }
 
@@ -65,6 +70,7 @@ const signUp = async () => {
           }}></input> 
         </div>
         <button className="signUpButton" onClick={signUp}>Submit</button>
+        {error && <p className="error-message">{error}</p>}
     </div>
   )
 }
