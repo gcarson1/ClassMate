@@ -1,18 +1,20 @@
 // eslint-disable-next-line no-unused-vars
-import {React, useState } from 'react';
+import {React, useEffect, useState } from 'react';
 import "./universitySearchBar.css"
 
-export const ClassSearchBar = ({ setResults, university }) => {
+export const ClassSearchBar = ({ setResults, uniID }) => {
     const [input, setInput] = useState("");
 
     
+
+    
     const fetchData = async (value) => {
-            const response = await fetch("/uni:uniID/class:classID");
+            const response = await fetch(`http://localhost:7071/uni/${uniID}/allclasses`);
             const json = await response.json();
-            const result = json.filter((uni) => {
-                return uni && value &&
-                uni.UniName && 
-                uni.UniName.toLowerCase().includes(value.toLowerCase());
+            const result = json.filter((course) => {
+                return course && value &&
+                course.FullName && 
+                course.FullName.toLowerCase().includes(value.toLowerCase());
             });
            setResults(result); 
     };
@@ -27,7 +29,7 @@ export const ClassSearchBar = ({ setResults, university }) => {
             <div className='searchBar'>
             <input className='textBox'
                 type="text"
-                placeholder="Search University..."
+                placeholder="Search Class..."
                 value={input}
                 onChange={(e) => handleChange(e.target.value)}
             />

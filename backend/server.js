@@ -31,7 +31,7 @@ app.get('/universities', async (req, res) => {
     res.json(record);
 });
 
-app.get('/uni:uniID/allclasses', async (req, res) => {
+app.get('/uni/:uniID/allclasses', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
     let record = await getAllClassesByUni(poolConnection, req.params.uniID);

@@ -1,16 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import "./uniSearchResultsList.css"
-import { SearchResult } from "./searchResult";
+import { ClassSearchResult } from "./classSearchResult";
 import { useNavigate } from "react-router-dom";
 
 
-export const SearchResultsList = ({ results }) => {
+export const ClassSearchResultsList = ({ results }) => {
   const navigate = useNavigate();
 
   const handleItemClick = (result) => {
     // Navigate to the UniversityPage with the selected result as state
-    navigate(`/University/${result.UniID}`, { state: { result: result } });
+    navigate(`/Class/${result.ClassID}`, { state: { result: result } });
   };
 
   return (
@@ -23,7 +23,7 @@ export const SearchResultsList = ({ results }) => {
             style={{ color: "inherit", textDecoration: "inherit", cursor: "pointer" }}
             onClick={() => handleItemClick(result)}
           >
-            <SearchResult result={result} />
+            <ClassSearchResult result={result} />
           </div>
         );
       })}

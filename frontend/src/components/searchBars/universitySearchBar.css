@@ -1,11 +1,8 @@
 .searchBar-container {
     display: flex;
     background-color: #ffffff;
-    width: 50vw;
+    width: 48vw;
     justify-content: center;
-    margin-top: 100px;
-    padding-left: 60px;
-    padding-right: 60px;
     border-radius: 10px;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
@@ -14,10 +11,8 @@
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    margin-top: 50px;
-    margin-right: 100px;
-    margin-left: 100px;
-    padding-bottom: 50px;
+    margin-top: 30px;
+    padding-bottom: 30px;
 }
 
 .textBox {
@@ -26,7 +21,7 @@
     border-radius: 7px;
     border-color: white;
     background-color: #f0f0f0;
-    font-size: 25px;
+    font-size: 22px;
     font-family: Arial, Helvetica, sans-serif;
 }
 

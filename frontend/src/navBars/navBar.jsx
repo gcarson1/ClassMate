@@ -36,24 +36,22 @@ const NavBar = () => {
             <img className="logo" src="../public/images/favicon.ico" alt="ClassMateLogo" />
           </NavLink>
         </div>
-        <div className="navBar-header">
           {loggedIn ? (
             <h1 className="navBar-header-text">Hello User!</h1>
           ) : (
             <h1 className="navBar-header-text">ClassMate</h1>
           )}
           
-        </div>
         <div className="navBar-buttons">
           {loggedIn ? (
             <button className="navBar-logout-text" onClick={logout}>Log Out</button>
           ) : (
             <>
-            <NavLink to="/Login" style={{ color: 'inherit', textDecoration: 'inherit' }}>
-            <button className="navBar-login-text">Login</button>
+            <NavLink to="/Login" style={{ color: 'inherit', textDecoration: 'inherit'}}>
+            <a className="navBar-login-button">Login</a>
           </NavLink>
           <NavLink to="/SignUp" style={{ color: 'inherit', textDecoration: 'inherit' }}>
-            <button className="navBar-signUp-text">SignUp</button>
+            <a className="navBar-signUp-button">SignUp</a>
           </NavLink>
           </>
           )}
