@@ -16,7 +16,7 @@ export async function addUser(poolConnection, username, email, uniID) {
             SET @maxUserID = ISNULL(@maxUserID, 0) + 1;
             
             -- Step 3: Insert the new user into the table
-            INSERT INTO [dbo].[Users] (UserID, Username, Password, Email, UniID) 
+            INSERT INTO [dbo].[Users] (UserID, Username, Email, UniID) 
             VALUES (@maxUserID, '${username}', '${email}', ${uniID});
             
             -- Step 4: Commit the transaction
@@ -89,6 +89,7 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 //to either one difficulty or one difficulty and one comment per class, but not more than one. In the front end, I would imagine this working like voting 
 //and adding a comment if they so desire
 export async function addComment(poolConnection, userID, comment, termTaken, grade, classID, difficultyValue, qualityValue, professorID) {
+    comment = comment.replaceAll("'", "''");
     try {
         console.log("Adding comment: '"  + comment + "' to database");
         let resultSet = await poolConnection.request().query(`

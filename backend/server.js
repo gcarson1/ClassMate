@@ -23,7 +23,11 @@ cron.schedule('*/10 * * * *', () => {
     }
 });
 
-// Gets universities from the database
+await addUser(poolConnection, "testuser", "test@utk.edu", 1);
+await addComment(poolConnection, 2,"Really dumb tbh", "Fall 2023", "A",  1, 1, 1, 1);
+
+
+
 app.get('/universities', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
