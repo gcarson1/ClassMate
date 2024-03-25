@@ -118,8 +118,8 @@ export async function addComment(poolConnection, userID, comment, termTaken, gra
         SELECT @maxCID = MAX(CommentID) FROM Comments;
         SET @maxCID = ISNULL(@maxCID, 0) + 1;
 
-        INSERT INTO [dbo].[Comments] (Comment, TermTaken, Grade, CommentID, UserID, ClassID, DifficultyID, PostDate) 
-        VALUES ('${comment}', '${termTaken}', '${grade}', @maxCID, ${userID}, ${classID}, @maxID, CURRENT_TIMESTAMP);
+        INSERT INTO [dbo].[Comments] (Comment, TermTaken, Grade, CommentID, UserID, ClassID, DifficultyID, PostDate, CommentScore) 
+        VALUES ('${comment}', '${termTaken}', '${grade}', @maxCID, ${userID}, ${classID}, @maxID, CURRENT_TIMESTAMP, 0);
 
         -- Commit the transaction
         COMMIT;
