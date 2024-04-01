@@ -222,3 +222,26 @@ export async function addDifficulty(poolConnection, difficultyValue, qualityValu
     }
 }
 
+export async function addUpvote(poolConnection, userID, commentID) {
+    try {
+        console.log("Adding vote of " + voteValue + " to database");
+        let resultSet = await poolConnection.request().query(`
+        -- Begin a transaction to ensure atomicity
+        BEGIN TRANSACTION;
+
+        -- Adding a new vote
+        INSERT INTO [dbo].[User_Comment_Upvotes] (UserID, CommentID) 
+        VALUES (${userID}, ${commentID});
+
+        -- Commit the transaction
+        COMMIT;
+
+        -- Select the details of the newly added vote
+        SELECT * FROM Votes WHERE UserID = ${userID} AND CommentID = ${commentID};
+        `);
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}

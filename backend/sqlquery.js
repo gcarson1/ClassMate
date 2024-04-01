@@ -77,3 +77,42 @@ export async function getClassesByUniAndType(poolConnection, uniID, classTypeID)
         return null;
     }
 }
+
+
+export async function getProfessorsAtUni(poolConnection, uniID) {
+    try {
+        console.log("requesting all professors at university " + uniID);
+        let resultSet = await poolConnection.request().query(`
+        SELECT p.ProfessorID, p.Name
+        FROM [dbo].[Professors] p
+        WHERE p.UniID = ${uniID}
+        `);
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}
+
+export async function getProfessorsByClassID(poolConnection, classID) {
+    try {
+        console.log("requesting all professors with classID " + classID);
+        let resultSet = await poolConnection.request().query(`
+        WITH ProfessorIDS AS (
+            SELECT ProfessorID
+            FROM [dbo].[Class_Professors]
+            WHERE ClassID = ${classID}
+        ) 
+        
+        SELECT p.ProfessorID, p.Name
+        FROM [dbo].[Professors] p
+        INNER JOIN ProfessorIDS pi on p.ProfessorID = pi.ProfessorID
+        
+        `);
+        return resultSet.recordset;
+    } catch (err) {
+        console.error(err.message);
+        return null;
+    }
+
+}

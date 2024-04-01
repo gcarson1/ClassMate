@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
 import {connect, closeConnection, reopenConnection, testQuery} from './sqlconnect.js';
-import {getUniversities, getClassInfo, getClassesByUniAndType, getAllClassesByUni} from './sqlquery.js'
+import {getUniversities, getClassInfo, getClassesByUniAndType, getAllClassesByUni, getProfessorsByClassID, getProfessorsAtUni} from './sqlquery.js'
 import { addUniversity, addClassType, addComment, addClass, addDifficulty, addProfessor, addUser } from './sqladd.js';
 import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDifficulty, deleteProfessor, deleteUser } from './sqldelete.js';
 
@@ -23,11 +23,6 @@ cron.schedule('*/10 * * * *', () => {
     }
 });
 
-await addUser(poolConnection, "testuser", "test@utk.edu", 1);
-await addComment(poolConnection, 2,"Really dumb tbh", "Fall 2023", "A",  1, 1, 1, 1);
-
-
-
 app.get('/universities', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
@@ -46,9 +41,26 @@ app.get('/uni/:uniID/allclasses', async (req, res) => {
 app.get('/uni/:uniID/class/:classID', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
-    let record = await getClassInfo(poolConnection, req.params.classID, req.params.uniID); //The uniname is a placeholder for the university name
+    let record = await getClassInfo(poolConnection, req.params.classID, req.params.uniID);
     res.json(record);
 });
+
+// Gets all professors who have been known to teach a specific class
+app.get('/class/:classID/allprofessors', async (req, res) => {
+    await reopenConnection(poolConnection);
+    lastActivity = Date.now();
+    let record = await getProfessorsByClassID(poolConnection, req.params.classID);
+    res.json(record);
+});
+
+// Gets all professors under a specific university
+app.get('/uni/:uniID/allprofessors', async (req, res) => {
+    await reopenConnection(poolConnection);
+    lastActivity = Date.now();
+    let record = await getProfessorsAtUni(poolConnection, req.params.uniID)
+    res.json(record);
+});
+
 
 //Gets list of classes for a specific university and class type
 app.get('/uni/:uniID/classtype/:classTypeID/classes', async (req, res) => {
