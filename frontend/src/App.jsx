@@ -18,23 +18,23 @@ import UniversityPage from "./pages/UniversityPage";
 import ClassPage from "./pages/classPage";
 
 
+
 export const LoginContext = createContext();
  
 const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" element={<NavBar />}>
-          <Route index element={<Home />}/>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/University" >
-            <Route path=":id" element={<UniversityPage />}/>
+  createRoutesFromElements(
+    <Route path="/" element={<NavBar />}>
+      <Route index element={<Home />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/SignUp" element={<SignUp />} />
+      <Route path="/University">
+        <Route path=":uniID" element={<UniversityPage />}> 
+        </Route>
+          <Route path="/University/:uniID/Class/:classID" element={<ClassPage />} >
           </Route>
-          <Route path="/Class" >
-            <Route path=":id" element={<ClassPage />}/>
-          </Route>
-        </Route>    
-        
-    )
+      </Route>
+    </Route>
+  )
 );
 
 function App() {

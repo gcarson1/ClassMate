@@ -2,8 +2,8 @@
 import React, { useState } from "react"
 import "./Home.css"
 
-import { SearchBar } from "../components/searchBars/universitySearch"
-import { SearchResultsList } from "../components/searchBars/uniSearchResultsList";
+import { SearchBar } from "../components/searchBars/uniSearchBar/universitySearch";
+import { SearchResultsList } from "../components/searchBars/uniSearchBar/uniSearchResultsList";
 
 
 function Home() {

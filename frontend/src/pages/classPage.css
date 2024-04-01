@@ -1,0 +1,27 @@
+.class-container{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-between;
+}
+
+.meta-data{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+.review-container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: left;
+    max-height: 80vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}   
+
+

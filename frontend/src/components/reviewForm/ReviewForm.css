@@ -1,0 +1,74 @@
+.addReview-button{
+    background-color: black;
+    color: white;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.popup-inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 35vw;
+    max-width: 650;
+    box-shadow: 0px 4px 8px #c0c0c0;
+}
+
+.popup{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.popup-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.dropdown{
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: #f0f0f0;
+    border: black;
+    border-color: black;
+    padding: 5px;
+}
+
+.inputs{
+    margin: 5px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 27vw;
+}
+
+.commentBox{
+    text-align: left;
+    padding-bottom: 80px;
+    background-color: #f0f0f0;
+    width: 27vw;
+}
+
+.goBackBox{
+    display: flex;
+    flex-direction: row;
+    justify-items: start;
+    height: 15px;
+    width: 100%;
+}
+
+.goBack{
+    margin: 0px;
+    cursor: pointer;
+}
+

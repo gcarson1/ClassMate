@@ -1,0 +1,11 @@
+.review-list {
+    display: flex;
+    flex-direction: column;
+   
+    
+}
+
+.review-element{
+    padding: 0px;
+    margin: 0px;
+}

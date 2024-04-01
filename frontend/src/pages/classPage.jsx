@@ -1,19 +1,50 @@
-import { useEffect } from "react";
-import "./UniversityPage.css"
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import "./classPage.css"
+import { useLocation} from "react-router-dom";
+import axios from 'axios';
+import ReviewList from "../components/reviewList/reviewList";
+import { ReviewForm } from "../components/reviewForm/ReviewForm";
 
-export default function ClassPage() {
-    const location = useLocation();
 
   
-    const result  = location.state.result;
+
+  export default function ClassPage() {
+  const [reviews, setReviews] = useState([]);
+  const location = useLocation();
+  const classID = location.state && location.state.result && location.state.result.ClassID;
+  const uni = location.state && location.state.uni;
+
+  const fetchReviews = async () => {
+    try {
+      if (uni && classID) { 
+        const response = await axios.get(`http://localhost:7071/uni/${uni}/class/${classID}`);
+        setReviews(response.data); //set review list 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  
+    useEffect(() => {
+        fetchReviews();
+    }, [])
 
     useEffect(() => {
-        console.log(result);
-    })
+      console.log(reviews); // Log reviews after it has been updated
+  }, [reviews]); // Run this effect whenever reviews changes
 
 
   return (
-    <div>classPage</div>
+
+    <div className="class-container">
+      <div className="meta-data">
+        Meta-Data
+        <ReviewForm />
+      </div>
+      <div className="review-container">
+        <ReviewList reviews={reviews} />
+      </div>
+    </div>
   )
 }

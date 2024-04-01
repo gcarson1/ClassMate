@@ -43,7 +43,7 @@ app.get('/uni/:uniID/allclasses', async (req, res) => {
 });
 
 // Gets all class info and comments for a specific class at a specific university
-app.get('/uni:uniID/class:classID', async (req, res) => {
+app.get('/uni/:uniID/class/:classID', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
     let record = await getClassInfo(poolConnection, req.params.classID, req.params.uniID); //The uniname is a placeholder for the university name
@@ -51,7 +51,7 @@ app.get('/uni:uniID/class:classID', async (req, res) => {
 });
 
 //Gets list of classes for a specific university and class type
-app.get('/uni:uniID/classtype:classTypeID/classes', async (req, res) => {
+app.get('/uni/:uniID/classtype/:classTypeID/classes', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
     let record = await getClassesByUniAndType(poolConnection, req.params.uniID, req.params.classTypeID);

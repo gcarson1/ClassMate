@@ -1,16 +1,18 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import "./uniSearchResultsList.css"
+import "../uniSearchBar/universitySearchBar.css"
 import { ClassSearchResult } from "./classSearchResult";
 import { useNavigate } from "react-router-dom";
 
 
-export const ClassSearchResultsList = ({ results }) => {
+export const ClassSearchResultsList = ({ results, Uni }) => {
   const navigate = useNavigate();
 
   const handleItemClick = (result) => {
+
     // Navigate to the UniversityPage with the selected result as state
-    navigate(`/Class/${result.ClassID}`, { state: { result: result } });
+    console.log("clicked on class from: " + Uni);
+    navigate(`Class/${result.ClassID}`, { state: { result: result, uni: Uni } });
   };
 
   return (

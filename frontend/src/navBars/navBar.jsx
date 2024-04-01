@@ -33,7 +33,7 @@ const NavBar = () => {
       <header className="navBar-container">
         <div className="navBar-logo">
           <NavLink to="/">
-            <img className="logo" src="../public/images/favicon.ico" alt="ClassMateLogo" />
+            <img className="logo" src="/public/images/favicon.ico" alt="ClassMateLogo" />
           </NavLink>
         </div>
           {loggedIn ? (
@@ -48,10 +48,10 @@ const NavBar = () => {
           ) : (
             <>
             <NavLink to="/Login" style={{ color: 'inherit', textDecoration: 'inherit'}}>
-            <a className="navBar-login-button">Login</a>
+            <p className="navBar-login-button">Login</p>
           </NavLink>
           <NavLink to="/SignUp" style={{ color: 'inherit', textDecoration: 'inherit' }}>
-            <a className="navBar-signUp-button">SignUp</a>
+            <p className="navBar-signUp-button">SignUp</p>
           </NavLink>
           </>
           )}
