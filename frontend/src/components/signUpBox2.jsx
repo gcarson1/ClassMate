@@ -23,11 +23,26 @@ export default function SignUpBox2() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       const isLoggedIn = !!currentUser;
-      setLoggedIn(isLoggedIn);
-      localStorage.setItem("loggedIn", loggedIn); //saving logged In state to local storage to persist through refreshes and navigation
+      console.log("isLoggedIn:", isLoggedIn); // Debug log to check isLoggedIn value
+      
+
+        // Save email to local storage if user is logged in
+    if (isLoggedIn) {
+      localStorage.setItem("loggedIn", true);
+      localStorage.setItem("userEmail", currentUser.email); // Save user's email
+      const userEmail = currentUser.email;
+      console.log("User's email:", userEmail);
+    } else {
+      console.log("removing " + currentUser.email + "from local storage");
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("userEmail"); // Remove user's email if not logged in
+    }
+
       console.log("signup page setting loggedIn to " + isLoggedIn);
+      setLoggedIn(isLoggedIn);
     });
 
+    
     // Cleanup function to unsubscribe when component unmounts
     return () => unsubscribe();
   }, [setLoggedIn, loggedIn]); // Empty dependency array means this effect runs only once on mount

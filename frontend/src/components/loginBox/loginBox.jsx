@@ -28,8 +28,14 @@ export default function LoginBox() {
       const isLoggedIn = !!currentUser;
       setLoggedIn(isLoggedIn);
       localStorage.setItem("loggedIn", isLoggedIn); //saving logged In state to local storage to persist through refreshes and navigation
-      console.log("login page setting logged in to " + loggedIn);
-      console.log("saving " + localStorage.getItem('loggedIn') + " into local storage");
+      if(isLoggedIn) {
+        localStorage.setItem("userEmail", currentUser.email) //save email to local storage
+        console.log("saved " + localStorage.getItem("userEmail") + " to local storage");
+        console.log("loggedIn set to " + localStorage.getItem("loggedIn"));
+      } 
+      
+      //console.log("login page setting logged in to " + loggedIn);
+      //console.log("saving " + localStorage.getItem('loggedIn') + " into local storage");
     });
 
     // Cleanup function to unsubscribe when component unmounts

@@ -22,10 +22,11 @@ const NavBar = () => {
   const logout = async () => {
     await signOut(auth);
     const isLoggedIn = false;
-      setLoggedIn(isLoggedIn);
+      await setLoggedIn(isLoggedIn);
       localStorage.setItem("loggedIn", isLoggedIn);
-    console.log("navBar setting logged in to " + loggedIn);
-    console.log("saved " + localStorage.getItem('loggedIn') + " into local storage")
+      console.log("removed " + localStorage.getItem('loggedIn') + " from local storage");
+      localStorage.removeItem("userEmail");
+    console.log("changed logged in to " + localStorage.getItem('loggedIn'));
   }
 
   return (
