@@ -25,14 +25,14 @@ export async function getClassInfo(poolConnection, classID, uniID) {
                 LEFT JOIN Class c ON c.ClassTypeID = ct.ClassTypeID
                 LEFT JOIN University u ON ct.UniID = u.UniID
             ),
-            fulldiffname (DifficultyID, DifficultyValue, QualityValue, ProfessorName, UserName, ClassID) AS (
-                SELECT d.DifficultyID, d.DifficultyValue, d.QualityValue, p.Name, u.UserName, d.ClassID
+            fulldiffname (DifficultyID, DifficultyValue, QualityValue, ProfessorName, UserID, ClassID, Email) AS (
+                SELECT d.DifficultyID, d.DifficultyValue, d.QualityValue, p.Name, u.UserID, d.ClassID, u.Email
                 FROM Difficulty d
                 LEFT JOIN Professors p ON d.ProfessorID = p.ProfessorID
                 LEFT JOIN Users u ON d.UserID = u.UserID
             )
 
-        SELECT d.DifficultyValue, d.QualityValue, d.ProfessorName, d.UserName, c.Comment, c.TermTaken, c.Grade, c.PostDate, cl.ClassType, cl.ClassName, cl.ClassNum, cl.UniName
+        SELECT d.DifficultyValue, d.QualityValue, d.ProfessorName, d.Email, c.Comment, c.TermTaken, c.Grade, c.PostDate, cl.ClassType, cl.ClassName, cl.ClassNum, cl.UniName
         FROM fulldiffname d
         LEFT JOIN Comments c ON d.DifficultyID = c.DifficultyID
         LEFT JOIN fullclassname cl ON d.ClassID = cl.ClassID
@@ -115,4 +115,22 @@ export async function getProfessorsByClassID(poolConnection, classID) {
         return null;
     }
 
+}
+
+//Grab a list of all people who made a post for that class
+export async function getPostersByClassID(poolConnection, classID) {
+    try {
+        console.log("requesting all posters with classID " + classID);
+        let resultSet = await poolConnection.request().query(`
+        SELECT u.UserID, u.Email
+        FROM [dbo].[Difficulty] d
+        INNER JOIN [dbo].[Users] u ON d.UserID = u.UserID
+        WHERE d.ClassID = ${classID}
+        `);
+        return resultSet.recordset;
+    }
+    catch (err) {
+        console.error(err.message);
+        return null;
+    }
 }
