@@ -6,9 +6,7 @@ export default function Review({ review }) {
 
   return (
     <div className="review-wrapper">
-      <div className="sub-wrapper">
-        
-        </div>
+     
         <div className="under-date">
           <div className="ratings-column">
             <div className="diff-header">Difficulty</div>

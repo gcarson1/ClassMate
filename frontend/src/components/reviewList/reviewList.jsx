@@ -1,19 +1,19 @@
-import Review from "./review"
-import "./reviewList.css"
+import Review from "./review";
+import "./reviewList.css";
 
-export default function ReviewList( {reviews}) {
+export default function ReviewList({ reviews }) {
   return (
     <div className="review-list">
-         {reviews.map((review, id) => {
-        return (
-          <div
-            key={id}
-            className="review-element"
-          >
-            <Review review={review}/>
+      {reviews.length === 0 ? (
+        <div className="noReviewDiv"><h3>No reviews made yet...</h3></div>
+        
+      ) : (
+        reviews.map((review, id) => (
+          <div key={id} className="review-element">
+            <Review review={review} />
           </div>
-        );
-      })}
+        ))
+      )}
     </div>
-  )
+  );
 }
