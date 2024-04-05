@@ -44,7 +44,7 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
 
     <div className="class-container">
       <div className="meta-data">
-        <ReviewForm uniID={uni} setAlert={setAlertState}/>
+        <ReviewForm uni={uni} setAlert={setAlertState} classID={classID}/>
         {alert && <p>You must be logged in to make a review</p>}
       </div>
     

@@ -2,17 +2,34 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ReviewForm.css";
 
-export const ReviewForm = ( {uni, setAlert} ) => {
-  const [difficulty, setDifficulty] = useState(1);
-  const [utility, setUtility] = useState(1);
+export const ReviewForm = ( {uni, setAlert, classID} ) => {
+  const [difficultyValue, setDifficulty] = useState(1);
+  const [utilityValue, setUtility] = useState(1);
   const [grade, setGrade] = useState("A+");
-  const [semester, setSemester] = useState("Fall");
+  const [termTaken, setTermTaken] = useState("Fall");
   const [year, setYear] = useState(new Date().getFullYear());
-  const [professor, setProfessor] = useState(1);
+  const [professorID, setProfessorID] = useState("");
   const [comment, setComment] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [userID, setUserID] = useState("");
-  const uniID = uni;
+   const [professors, setProfessors] = useState([]);
+   const [uniID, setUniID] = useState("");
+  
+
+
+  useEffect(() => { //gets list of professors
+    const fetchData = async () => {
+      try {
+        const result = await axios.get(`http://localhost:7071/class/${classID}/allprofessors`);
+        setProfessors(result.data);
+        setUniID(uni); //sets uniID
+      } catch (error) {
+        console.error("Error fetching professors:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
 
   useEffect(() => {
@@ -20,30 +37,40 @@ export const ReviewForm = ( {uni, setAlert} ) => {
     setUserID(localStorage.getItem("userID"));
     console.log("set UserID to", userID);
   } else {
+    console.log("user ID " + localStorage.getItem("userID"))
     console.log("user is not logged in, won't be able to make a post")
   }
   }, [])
   
   const handleSubmit = () => {
     const data = {
-      difficulty,
-      utility,
+      difficultyValue,
+      utilityValue,
       grade,
-      semester,
+      termTaken,
       year,
-      professor,
+      professorID,
       comment,
       uniID,
       userID
     };
 
-    axios.post("/addcomment", data)
+    axios.post("http://localhost:7071/addcomment", data) //post request for review
       .then(response => {
         console.log("Post request successful", response.data);
       })
       .catch(error => {
         console.error("Error in post request", error);
       });
+    console.log( "difficultyValue: " + difficultyValue);
+    console.log( "utilityValue: " + utilityValue);
+    console.log( "grade: " + grade);
+    console.log( "termTaken: " + termTaken);
+    console.log( "year: " + year);
+    console.log( "professorID: " + professorID);
+    console.log( "comment: " + comment);
+    console.log( "uniID: " + uniID);
+    console.log( "userID: " + userID);
   };
 
 
@@ -123,7 +150,7 @@ export const ReviewForm = ( {uni, setAlert} ) => {
 
             <div className="ratingswrapper">
               <div style={{marginRight: '2px'}}>Semester*</div>
-               <select className="dropdown" onChange={(e) => setSemester(e.target.value)}>
+               <select className="dropdown" onChange={(e) => setTermTaken(e.target.value)}>
                 {semesters.map((semester) => (
                   <option key={semester} value={semester}>
                     {semester}
@@ -142,10 +169,10 @@ export const ReviewForm = ( {uni, setAlert} ) => {
             </div>
             <div className="ratingswrapper">
               <div style={{marginRight: '13px'}}>Proffesor</div>
-               <select className="dropdown" onChange={(e) => setProfessor(e.target.value)}>
-                {numbers.map((number) => (
-                  <option key={number} value={number}>
-                    {number}
+               <select className="dropdown" onChange={(e) => setProfessorID(e.target.value)}>
+                {professors.map((professor) => (
+                  <option key={professor.Name} value={professor.ID}>
+                    {professor.Name}
                   </option>
                 ))}
               </select>
