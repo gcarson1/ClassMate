@@ -168,7 +168,7 @@ export const ReviewForm = ( {uni, setAlert, classID} ) => {
               </select>
             </div>
             <div className="ratingswrapper">
-              <div style={{marginRight: '13px'}}>Proffesor</div>
+              <div style={{marginRight: '13px'}}>Professor</div>
                <select className="dropdown" onChange={(e) => setProfessorID(e.target.value)}>
                 {professors.map((professor) => (
                   <option key={professor.Name} value={professor.ID}>
