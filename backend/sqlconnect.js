@@ -2,7 +2,21 @@ import sql from 'mssql';
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}`, debug: true });
 
-const config = {
+const config_local = {
+    user: process.env.AZURE_SQL_USER, // better stored in an app setting such as process.env.DB_USER
+    password: process.env.AZURE_SQL_PASSWORD, // better stored in an app setting such as process.env.DB_PASSWORD
+    server: process.env.AZURE_SQL_SERVER, // better stored in an app setting such as process.env.DB_SERVER
+    port: 1433, // optional, defaults to 1433, better stored in an app setting such as process.env.DB_PORT
+    database: process.env.AZURE_SQL_DATABASE, // better stored in an app setting such as process.env.DB_NAME
+    authentication: {
+        type: 'default'
+    },
+    options: {
+        encrypt: true
+    }
+}
+
+const config_server = {
     user: process.env.AZURE_SQL_USER, // better stored in an app setting such as process.env.DB_USER
     password: process.env.AZURE_SQL_PASSWORD, // better stored in an app setting such as process.env.DB_PASSWORD
     server: process.env.AZURE_SQL_SERVER, // better stored in an app setting such as process.env.DB_SERVER
@@ -19,10 +33,18 @@ const config = {
 // close connection only when we're certain application is finished
 
 //Connect to the database -> returns a pool connection
-export async function connect() {
+export async function connect(local = true) {
     try {
-        let poolConnection = await sql.connect(config);
-        return poolConnection;
+        if(local) {
+            console.log("Connecting to database locally.");
+            let poolConnection = await sql.connect(config_local);
+            return poolConnection;
+        }
+        else {
+            console.log("Connecting to database on server.");
+            let poolConnection = await sql.connect(config_server);
+            return poolConnection;
+        }
     } catch (err) {
         console.error(err.message);
         console.log("Error connecting")

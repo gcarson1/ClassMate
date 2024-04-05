@@ -1,3 +1,6 @@
+//usage: node server.js -l to run on local server
+//usage: node server.js to run on azure server
+
 import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
@@ -10,7 +13,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-let poolConnection = await connect();
+const local_connect = process.argv[2] === '-l' ? true : false;
+
+let poolConnection = await connect(local_connect);
 let lastActivity = Date.now();
 const inactivityTime = 60 * 1000 * 10; // 10 minutes
 
