@@ -8,6 +8,7 @@ import {
       } from "firebase/auth";
 import { LoginContext } from "../../App";
 import { useNavigate } from "react-router-dom"
+import axios from "axios";
 
 
 
@@ -17,30 +18,41 @@ export default function LoginBox() {
   const [loginPassword, setLoginPassword] = useState("");
   const[loggedIn, setLoggedIn] = useContext(LoginContext);
   const [error, setError] = useState(null); // State variable for error message
+  // const[userID, setUserID] = useState("");
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
 
+  const fetchUserID = async (email) => {
+    try {
+      const response = await axios.get(`http://localhost:7071/email/${email}/userID`);
+      console.log(response.data[0].UserID);
+      // setUserID(response.data[0].UserID); // Assuming response contains the user ID
+      localStorage.setItem("userID", response.data[0].UserID);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       const isLoggedIn = !!currentUser;
       setLoggedIn(isLoggedIn);
       localStorage.setItem("loggedIn", isLoggedIn); //saving logged In state to local storage to persist through refreshes and navigation
       if(isLoggedIn) {
-        localStorage.setItem("userEmail", currentUser.email) //save email to local storage
-        console.log("saved " + localStorage.getItem("userEmail") + " to local storage");
-        console.log("loggedIn set to " + localStorage.getItem("loggedIn"));
-      } 
-      
-      //console.log("login page setting logged in to " + loggedIn);
-      //console.log("saving " + localStorage.getItem('loggedIn') + " into local storage");
+        try {
+          await fetchUserID(currentUser.email); // gets userID from db
+          console.log("saved " + localStorage.getItem("userID") + " to local storage");
+          console.log("loggedIn set to " + localStorage.getItem("loggedIn"));
+        } catch (error) {
+          setError(error.message);
+        }
+      }
     });
-
-    // Cleanup function to unsubscribe when component unmounts
+      
     return () => unsubscribe();
-  }, [loggedIn, setLoggedIn]); // Empty dependency array means this effect runs only once on mount
+  }, [loggedIn, setLoggedIn]);
 
 
 const Login = async () => {

@@ -4,23 +4,45 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import { auth } from "../../fireBase-config"
 import { LoginContext } from "../App"
 import { useNavigate } from "react-router-dom"
+import axios from 'axios'
 
-
+ // eslint-disable-next-line no-unused-vars
 
 export default function SignUpBox2() {
 
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
-  // eslint-disable-next-line no-unused-vars
   const[loggedIn, setLoggedIn] = useContext(LoginContext);
   const [error, setError] = useState(null); // State variable for error message
-
   const [user, setUser] = useState({});
-  
   const navigate = useNavigate();
+  // const [userID, setUserID] = useState("");
+
+  const addUser = async (email, uniID) => {
+    try {
+      const response = await axios.post('http://localhost:7071/adduser', { email, uniID });
+      console.log("added user to the database");
+      return response.data;
+    } catch (error) {
+      // Handle error
+      console.error('Error adding user:', error);
+      throw error; // Rethrow the error to be handled by the caller if needed
+    }
+  };
+
+  const fetchUserID = async (email) => {
+    try {
+      const response = await axios.get(`http://localhost:7071/email/${email}/userID`);
+      console.log(response.data[0].UserID);
+      localStorage.setItem("userID", response.data[0].UserID);
+      console.log("saved " + localStorage.get("userID") + "into local storage");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       const isLoggedIn = !!currentUser;
       console.log("isLoggedIn:", isLoggedIn); // Debug log to check isLoggedIn value
@@ -28,18 +50,24 @@ export default function SignUpBox2() {
 
         // Save email to local storage if user is logged in
     if (isLoggedIn) {
-      localStorage.setItem("loggedIn", true);
-      localStorage.setItem("userEmail", currentUser.email); // Save user's email
+      try{
+        localStorage.setItem("loggedIn", true);
       const userEmail = currentUser.email;
       console.log("User's email:", userEmail);
+
+      //adds user to database and saves their new ID to local storage
+      await addUser(currentUser.email, 1);
+      await fetchUserID(currentUser.email);
+      console.log("saved " + localStorage.getItem("userID") + " to local storage");
+      setLoggedIn(isLoggedIn);
+      console.log("signup page setting loggedIn to " + isLoggedIn);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      console.log("removing " + currentUser.email + "from local storage");
       localStorage.removeItem("loggedIn");
       localStorage.removeItem("userEmail"); // Remove user's email if not logged in
     }
-
-      console.log("signup page setting loggedIn to " + isLoggedIn);
-      setLoggedIn(isLoggedIn);
     });
 
     
