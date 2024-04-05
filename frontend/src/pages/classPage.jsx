@@ -39,7 +39,6 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
 
     <div className="class-container">
       <div className="meta-data">
-        Meta-Data
         <ReviewForm />
       </div>
       <div className="review-container">
