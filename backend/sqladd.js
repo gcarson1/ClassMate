@@ -90,6 +90,16 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 //and adding a comment if they so desire
 export async function addComment(poolConnection, userID, comment, termTaken, grade, classID, difficultyValue, qualityValue, professorID) {
     comment = comment.replaceAll("'", "''");
+    console.log("Printing parameters:");
+    console.log("userID: " + userID);
+    console.log("Comment: " + comment);
+    console.log("termTaken: " + termTaken);
+    console.log("grade: " + grade);
+    console.log("classID: " + classID);
+    console.log("difficultyValue: " + difficultyValue);
+    console.log("qualityValue: " + qualityValue);
+    console.log("professorID: " + professorID);
+
     try {
         console.log("Adding comment: '"  + comment + "' to database");
         let resultSet = await poolConnection.request().query(`
