@@ -15,7 +15,7 @@ export const ReviewForm = () => {
   };
 
   const numbers = [1, 2, 3, 4, 5];
-  const grades = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "F"];
+  const grades = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F"];
   const semesters = ["Fall", "Spring", "Summer", "Winter"];
 
   const getLastTenYears = () => {
@@ -99,7 +99,7 @@ export const ReviewForm = () => {
               </select>
             </div>
             <div className="ratingswrapper">
-              <div style={{marginRight: '13px'}}>Proffesor</div>
+              <div style={{marginRight: '13px'}}>Professor</div>
                <select className="dropdown">
                 {numbers.map((number) => (
                   <option key={number} value={number}>
