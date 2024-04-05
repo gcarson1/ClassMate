@@ -134,3 +134,19 @@ export async function getPostersByClassID(poolConnection, classID) {
         return null;
     }
 }
+
+export async function getUserID(poolConnection, email) {
+    try {
+        console.log("requesting userID for email " + email);
+        let resultSet = await poolConnection.request().query(`
+        SELECT UserID, Email
+        FROM [dbo].[Users]
+        WHERE Email = '${email}'
+        `);
+        return resultSet.recordset;
+    }
+    catch (err) {
+        console.error(err.message);
+        return null;
+    }
+}

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
 import {connect, closeConnection, reopenConnection, testQuery} from './sqlconnect.js';
-import {getUniversities, getClassInfo, getClassesByUniAndType, getAllClassesByUni, getProfessorsByClassID, getProfessorsAtUni, getPostersByClassID} from './sqlquery.js'
+import {getUniversities, getClassInfo, getClassesByUniAndType, getAllClassesByUni, getProfessorsByClassID, getProfessorsAtUni, getPostersByClassID, getUserID} from './sqlquery.js'
 import { addUniversity, addClassType, addComment, addClass, addDifficulty, addProfessor, addUser } from './sqladd.js';
 import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDifficulty, deleteProfessor, deleteUser } from './sqldelete.js';
 
@@ -75,6 +75,13 @@ app.get('/uni/:uniID/classtype/:classTypeID/classes', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();
     let record = await getClassesByUniAndType(poolConnection, req.params.uniID, req.params.classTypeID);
+    res.json(record);
+});
+
+app.get('/email/:email/userID', async (req, res) => {
+    await reopenConnection(poolConnection);
+    lastActivity = Date.now();
+    let record = await getUserID(poolConnection, req.params.email);
     res.json(record);
 });
 
