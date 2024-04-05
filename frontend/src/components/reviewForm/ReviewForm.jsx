@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./ReviewForm.css";
 
-export const ReviewForm = ( {uni} ) => {
+export const ReviewForm = ( {uni, setAlert} ) => {
   const [difficulty, setDifficulty] = useState(1);
   const [utility, setUtility] = useState(1);
   const [grade, setGrade] = useState("A+");
@@ -10,12 +11,20 @@ export const ReviewForm = ( {uni} ) => {
   const [professor, setProfessor] = useState(1);
   const [comment, setComment] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const userID = localStorage.getItem("userEmail"); //needs to be userID when configured and only get it if its not null
+  const [userID, setUserID] = useState("");
   const uniID = uni;
 
 
+  useEffect(() => {
+  if (localStorage.getItem("userID") !== null) {
+    setUserID(localStorage.getItem("userID"));
+    console.log("set UserID to", userID);
+  } else {
+    console.log("user is not logged in, won't be able to make a post")
+  }
+  }, [])
+  
   const handleSubmit = () => {
-    // Include all state data in the post request
     const data = {
       difficulty,
       utility,
@@ -23,27 +32,29 @@ export const ReviewForm = ( {uni} ) => {
       semester,
       year,
       professor,
-      comment
+      comment,
+      uniID,
+      userID
     };
 
-    // Perform your post request here using fetch or any other library
-    fetch("http://localhost:7071/addcomment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    }).then(response => {
-      console.log(response);
-    }).catch(error => {
-      console.log(error);
-    });
+    axios.post("/addcomment", data)
+      .then(response => {
+        console.log("Post request successful", response.data);
+      })
+      .catch(error => {
+        console.error("Error in post request", error);
+      });
   };
 
 
   const togglePopup = () => {
-    setIsOpen(!isOpen);
+    if (localStorage.getItem("loggedIn") === "true") {
+      setIsOpen(!isOpen);
+    } else {
+      setAlert(true); // Set the alert state if the user is not logged in
+    }
   };
+
 
   const numbers = [1, 2, 3, 4, 5];
   const grades = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "F"];

@@ -10,6 +10,7 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
 
   export default function ClassPage() {
   const [reviews, setReviews] = useState([]);
+  const [alert, setAlert] = useState(false);
   const location = useLocation();
   const classID = location.state && location.state.result && location.state.result.ClassID;
   const uni = location.state && location.state.uni;
@@ -24,7 +25,11 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
       console.log(error);
     }
   };
+
   
+  const setAlertState = (value) => {
+    setAlert(value);
+  };
   
     useEffect(() => {
         fetchReviews();
@@ -39,10 +44,15 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
 
     <div className="class-container">
       <div className="meta-data">
-        <ReviewForm uniID={uni}/>
+        <ReviewForm uniID={uni} setAlert={setAlertState}/>
+        {alert && <p>You must be logged in to make a review</p>}
       </div>
+    
+          
+        
       <div className="review-container">
         <ReviewList reviews={reviews} />
+        
       </div>
     </div>
   )
