@@ -39,7 +39,7 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
 
     <div className="class-container">
       <div className="meta-data">
-        <ReviewForm />
+        <ReviewForm uniID={uni}/>
       </div>
       <div className="review-container">
         <ReviewList reviews={reviews} />

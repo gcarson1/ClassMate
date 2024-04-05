@@ -1,7 +1,7 @@
 //Contains all of the functions for adding data to the database
 // Each function takes in a poolConnection and the necessary parameters for the data to be added and returns the resulting recordset, which is the data that was added to the database
 
-export async function addUser(poolConnection, email, uniID) {
+export async function addUser(poolConnection, email, uniID) { //hard code uniID to 1 for now
     try {
         console.log("Adding user " + email + " to database");
         let resultSet = await poolConnection.request().query(`

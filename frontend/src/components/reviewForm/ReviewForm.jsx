@@ -1,13 +1,44 @@
 import { useState } from "react";
 import "./ReviewForm.css";
 
-export const ReviewForm = () => {
+export const ReviewForm = ( {uni} ) => {
+  const [difficulty, setDifficulty] = useState(1);
+  const [utility, setUtility] = useState(1);
+  const [grade, setGrade] = useState("A+");
+  const [semester, setSemester] = useState("Fall");
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [professor, setProfessor] = useState(1);
+  const [comment, setComment] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const userID = localStorage.getItem("userEmail"); //needs to be userID when configured and only get it if its not null
+  const uniID = uni;
 
 
-// const submit = () => { will submit data to db
+  const handleSubmit = () => {
+    // Include all state data in the post request
+    const data = {
+      difficulty,
+      utility,
+      grade,
+      semester,
+      year,
+      professor,
+      comment
+    };
 
-// }
+    // Perform your post request here using fetch or any other library
+    fetch("http://localhost:7071/addcomment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+    });
+  };
 
 
   const togglePopup = () => {
@@ -45,7 +76,7 @@ export const ReviewForm = () => {
             <div className="review-inputs">  
             <div className="ratingswrapper">
               <div style={{marginRight: '10px'}}>Difficulty*</div>
-               <select className="dropdown">
+               <select className="dropdown" onChange={(e) => setDifficulty(e.target.value)}>
                 {numbers.map((number) => (
                   <option key={number} value={number}>
                     {number}
@@ -57,7 +88,7 @@ export const ReviewForm = () => {
            
             <div className="ratingswrapper">
               <div style={{marginRight: '30px'}}>Utility*</div>
-               <select className="dropdown">
+               <select className="dropdown" onChange={(e) => setUtility(e.target.value)}>
                 {numbers.map((number) => (
                   <option key={number} value={number}>
                     {number}
@@ -68,7 +99,7 @@ export const ReviewForm = () => {
             </div>
             <div className="ratingswrapper">
               <div style={{marginRight: '25px'}}>Grade*</div>
-               <select className="dropdown">
+               <select className="dropdown"  onChange={(e) => setGrade(e.target.value)}>
                 {grades.map((grades) => (
                   <option key={grades} value={grades}>
                     {grades}
@@ -81,7 +112,7 @@ export const ReviewForm = () => {
 
             <div className="ratingswrapper">
               <div style={{marginRight: '2px'}}>Semester*</div>
-               <select className="dropdown">
+               <select className="dropdown" onChange={(e) => setSemester(e.target.value)}>
                 {semesters.map((semester) => (
                   <option key={semester} value={semester}>
                     {semester}
@@ -90,7 +121,7 @@ export const ReviewForm = () => {
               </select>
 
               <div style={{marginRight: '5px', marginLeft: '10px'}}>Year*</div>
-               <select className="dropdown">
+               <select className="dropdown" onChange={(e) => setYear(e.target.value)}>
                 {lastTenYears.map((grades) => (
                   <option key={grades} value={grades}>
                     {grades}
@@ -100,7 +131,7 @@ export const ReviewForm = () => {
             </div>
             <div className="ratingswrapper">
               <div style={{marginRight: '13px'}}>Proffesor</div>
-               <select className="dropdown">
+               <select className="dropdown" onChange={(e) => setProfessor(e.target.value)}>
                 {numbers.map((number) => (
                   <option key={number} value={number}>
                     {number}
@@ -108,10 +139,11 @@ export const ReviewForm = () => {
                 ))}
               </select>
             </div>
-              <input className="commentBox" type="text" placeholder="Comment..."></input> 
+              <input className="commentBox" type="text" placeholder="Comment..."
+              onChange={(e) => setComment(e.target.value)}></input> 
             </div>
             
-            <button className="addReview-button">
+            <button className="addReview-button" onClick={handleSubmit}>
               Submit Review
             </button>
           </div>
