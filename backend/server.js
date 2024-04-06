@@ -106,6 +106,8 @@ app.post('/addclasstype', async (req, res) => {
     res.json(record);
 });
 
+
+
 app.post('/addcomment', async (req, res) => {
     await reopenConnection(poolConnection);
     lastActivity = Date.now();

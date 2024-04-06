@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import "./classPage.css"
 import { useLocation} from "react-router-dom";
-import axios from 'axios';
 import ReviewList from "../components/reviewList/reviewList";
 import { ReviewForm } from "../components/reviewForm/ReviewForm";
-
-
-  
+import { FetchReviews } from "../API/reviewsAPI";
 
   export default function ClassPage() {
   const [reviews, setReviews] = useState([]);
@@ -15,16 +12,15 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
   const classID = location.state && location.state.result && location.state.result.ClassID;
   const uni = location.state && location.state.uni;
 
-  const fetchReviews = async () => {
-    try {
-      if (uni && classID) { 
-        const response = await axios.get(`http://localhost:7071/uni/${uni}/class/${classID}`);
-        setReviews(response.data); //set review list 
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const reviewsData = await FetchReviews(uni, classID);
+      setReviews(reviewsData);
+    };
+    fetchData();
+  }, [uni, classID]);
+
 
   
   const setAlertState = (value) => {
@@ -32,7 +28,7 @@ import { ReviewForm } from "../components/reviewForm/ReviewForm";
   };
   
     useEffect(() => {
-        fetchReviews();
+        FetchReviews();
     }, [])
 
     useEffect(() => {

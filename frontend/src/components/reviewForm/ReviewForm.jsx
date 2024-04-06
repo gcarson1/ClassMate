@@ -1,28 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ReviewForm.css";
+import { FetchReviews } from "../../API/reviewsAPI";
 
-export const ReviewForm = ( {uni, setAlert, classID} ) => {
-  const [difficultyValue, setDifficulty] = useState(1);
-  const [utilityValue, setUtility] = useState(1);
-  const [grade, setGrade] = useState("A+");
-  const [termTaken, setTermTaken] = useState("Fall");
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [professorID, setProfessorID] = useState("");
-  const [comment, setComment] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const [userID, setUserID] = useState("");
+
+export const ReviewForm = ( { uni, setAlert, classID} ) => {
    const [professors, setProfessors] = useState([]);
-   const [uniID, setUniID] = useState("");
-  
-
-
+   const [professorID, setProfessorID] = useState(""); //professor ID wansn't getting set unless I did this
   useEffect(() => { //gets list of professors
     const fetchData = async () => {
       try {
         const result = await axios.get(`http://localhost:7071/class/${classID}/allprofessors`);
         setProfessors(result.data);
-        setUniID(uni); //sets uniID
+        setProfessorID(result.data[0].ProfessorID); //initializes ID
       } catch (error) {
         console.error("Error fetching professors:", error);
       }
@@ -30,6 +20,18 @@ export const ReviewForm = ( {uni, setAlert, classID} ) => {
 
     fetchData();
   }, []);
+
+  const [difficultyValue, setDifficulty] = useState(1);
+  const [qualityValue, setquality] = useState(1);
+  const [grade, setGrade] = useState("A+");
+  const [termTaken, setTermTaken] = useState("Fall");
+  const [year, setYear] = useState(new Date().getFullYear());
+  
+  const [comment, setComment] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [userID, setUserID] = useState("");
+
+  
 
 
   useEffect(() => {
@@ -43,34 +45,37 @@ export const ReviewForm = ( {uni, setAlert, classID} ) => {
   }, [])
   
   const handleSubmit = () => {
+    const updatedTerm = termTaken + " " + year;
+
     const data = {
       difficultyValue,
-      utilityValue,
+      qualityValue,
       grade,
-      termTaken,
-      year,
+      termTaken: updatedTerm,
       professorID,
       comment,
-      uniID,
+      classID,
       userID
     };
+
+    console.log( "difficultyValue: " + difficultyValue);
+    console.log( "utilityValue: " + qualityValue);
+    console.log( "grade: " + grade);
+    console.log( "professorID: " + professorID);
+    console.log( "comment: " + comment);
+    console.log( "userID: " + userID);
+    console.log("classID: " + classID);
+    console.log("termTaken: " + data.termTaken);
 
     axios.post("http://localhost:7071/addcomment", data) //post request for review
       .then(response => {
         console.log("Post request successful", response.data);
+        FetchReviews(uni, classID);
+        window.location.reload(); // Reload the page after successful submission
       })
       .catch(error => {
         console.error("Error in post request", error);
       });
-    console.log( "difficultyValue: " + difficultyValue);
-    console.log( "utilityValue: " + utilityValue);
-    console.log( "grade: " + grade);
-    console.log( "termTaken: " + termTaken);
-    console.log( "year: " + year);
-    console.log( "professorID: " + professorID);
-    console.log( "comment: " + comment);
-    console.log( "uniID: " + uniID);
-    console.log( "userID: " + userID);
   };
 
 
@@ -126,7 +131,7 @@ export const ReviewForm = ( {uni, setAlert, classID} ) => {
            
             <div className="ratingswrapper">
               <div style={{marginRight: '30px'}}>Utility*</div>
-               <select className="dropdown" onChange={(e) => setUtility(e.target.value)}>
+               <select className="dropdown" onChange={(e) => setquality(e.target.value)}>
                 {numbers.map((number) => (
                   <option key={number} value={number}>
                     {number}
@@ -171,7 +176,7 @@ export const ReviewForm = ( {uni, setAlert, classID} ) => {
               <div style={{marginRight: '13px'}}>Professor</div>
                <select className="dropdown" onChange={(e) => setProfessorID(e.target.value)}>
                 {professors.map((professor) => (
-                  <option key={professor.Name} value={professor.ID}>
+                  <option key={professor.ProfessorID} value={professor.ProfessorID}>
                     {professor.Name}
                   </option>
                 ))}
