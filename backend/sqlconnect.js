@@ -55,6 +55,7 @@ export async function connect(local = true) {
 export async function reopenConnection(poolConnection) {
     try {
         if (poolConnection && !poolConnection.connected) {
+            console.log("Reconnecting to database");
             await poolConnection.connect();
         }
     } catch (err) {
