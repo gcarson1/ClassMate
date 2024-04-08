@@ -89,3 +89,47 @@
     border: solid black;    
 }
 
+@media only screen and (max-width: 767px){
+    
+    .logo{
+        height: 15vw;
+    }
+    .navBar-logo {
+        padding-top: 5px;
+        padding-left: 2%;   
+    }
+    
+    
+    .navBar-header-text {
+        font-size: 7vw;
+    }
+    
+    .navBar-buttons {
+        padding-right: 2%;
+        gap: 0px;
+    }
+    
+    .navBar-login-button {
+        font-size: 5.5vw;  /*21*/
+    }
+    
+    .navBar-login-button:hover {
+        font-size: 5.5vw;
+    }
+
+    .navBar-signUp-button {
+        font-size: 5.5vw;
+    }
+    
+    .navBar-signUp-button:hover {
+        font-size: 5.5vw;
+    }
+    
+    .navBar-logout-text {
+        font-size: 4.5vw;
+    }
+    
+    .navBar-logout-text:hover {
+        font-size: 4.5vw;  
+    }
+}

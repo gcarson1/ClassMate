@@ -6,6 +6,19 @@
     overflow: hidden;
 }
 
+@media only screen and (max-width: 767px){
+    html, body{
+        overflow: hidden;
+    }
+    .home-container{
+        background-image: url('../../public/images/stack.png');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+}
+
 
 .searchBar {
     display: flex;

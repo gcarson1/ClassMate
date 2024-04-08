@@ -53,3 +53,18 @@
 .signUpButton:hover{
     background-color: rgb(80, 80, 80);
 }
+
+@media only screen and (max-width: 767px){
+    .form{
+        width: 80vw;
+    }
+    
+    .input{
+        width: 210%;
+    }
+    
+    .signUpButton{
+        height: 4.5vh;
+    }
+    
+}

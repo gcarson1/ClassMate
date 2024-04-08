@@ -9,3 +9,10 @@
     width: 40vw;
     overflow-y: scroll;
 }
+
+@media only screen and (max-width: 767px){
+    .results-list{
+        width: 70vw;
+        margin-top: -22vw;
+    }
+}
