@@ -108,3 +108,40 @@
     display: flex;
     width: 100%;
 }
+
+@media only screen and (max-width: 767px){
+    .addReview-button{
+        padding: 10px;
+    }
+    
+    .addReview-button:hover{
+        padding: 10px;
+    }
+    
+    .popup{
+        width: 90vw;
+        height: 80vh;
+    }
+    
+    .dropdown{
+        width: 30vw;
+    }
+    
+    .review-inputs{
+        margin-right: 12vw;
+        width: 60vw;
+    }
+    
+    .commentBox{
+        margin-left: 14vw;
+        width: 70vw;
+    }
+    
+}
+
+@media only screen and (max-width: 280px){
+    .popup{
+        width: 90vw;
+        height: 80vh;
+    }
+}

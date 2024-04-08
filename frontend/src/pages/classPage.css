@@ -24,4 +24,19 @@
     overflow-y: scroll;
 }   
 
+@media only screen and (max-width: 767px){
+    .class-container{
+        flex-direction: column;
+    }
+    
+    .meta-data{
+        padding-left: 25vw;
+    }
 
+    .review-container{
+        padding-top: 0vw;
+        padding-right: 50vw;
+        max-height: 60vh;
+    }
+
+}
