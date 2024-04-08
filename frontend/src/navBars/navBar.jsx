@@ -1,6 +1,6 @@
 //import React from 'react'
 import "./navBar.css";
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import { useContext, useEffect } from "react";
 import  { LoginContext } from "../App"
 import { signOut } from "firebase/auth";
@@ -10,7 +10,7 @@ const NavBar = () => {
 
   //const loggedIn = useContext(LoginContext);
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
-
+const navigate = useNavigate();
 
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn');
@@ -24,9 +24,10 @@ const NavBar = () => {
     const isLoggedIn = false;
       await setLoggedIn(isLoggedIn);
       localStorage.setItem("loggedIn", isLoggedIn);
-      console.log("removed " + localStorage.getItem('loggedIn') + " from local storage");
-      localStorage.removeItem("userEmail");
+      console.log("removed userID from local storage");
+      localStorage.removeItem("userID");
     console.log("changed logged in to " + localStorage.getItem('loggedIn'));
+    navigate("/"); //keeps users from making a post after logging out
   }
 
   return (

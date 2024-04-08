@@ -5,21 +5,22 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "cors": "^2.8.5",
-      "mssql": "^10.0.2",
-      "mysql2": "^3.9.1",
-      "node-cron": "^3.0.3",
-      "swagger-ui-express": "^5.0.0",
-      "yamljs": "^0.3.0"
+        "cors": "^2.8.5",
+        "mssql": "^10.0.2",
+        "mysql2": "^3.9.1",
+        "node-cron": "^3.0.3",
+        "sql": "^0.78.0",
+        "swagger-ui-express": "^5.0.0",
+        "yamljs": "^0.3.0"
     },
     "devDependencies": {
-      "concurrently": "^8.2.2",
-      "dotenv": "^16.4.4"
+        "concurrently": "^8.2.2",
+        "dotenv": "^16.4.4"
     }
-  }
+}

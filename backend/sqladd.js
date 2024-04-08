@@ -1,9 +1,9 @@
 //Contains all of the functions for adding data to the database
 // Each function takes in a poolConnection and the necessary parameters for the data to be added and returns the resulting recordset, which is the data that was added to the database
 
-export async function addUser(poolConnection, username, email, uniID) {
+export async function addUser(poolConnection, email, uniID) { //hard code uniID to 1
     try {
-        console.log("Adding user " + username + " to database");
+        console.log("Adding user " + email + " to database");
         let resultSet = await poolConnection.request().query(`
             -- Begin a transaction to ensure atomicity
             BEGIN TRANSACTION;
@@ -16,8 +16,8 @@ export async function addUser(poolConnection, username, email, uniID) {
             SET @maxUserID = ISNULL(@maxUserID, 0) + 1;
             
             -- Step 3: Insert the new user into the table
-            INSERT INTO [dbo].[Users] (UserID, Username, Email, UniID) 
-            VALUES (@maxUserID, '${username}', '${email}', ${uniID});
+            INSERT INTO [dbo].[Users] (UserID, Email, UniID) 
+            VALUES (@maxUserID, '${email}', ${uniID});
             
             -- Step 4: Commit the transaction
             COMMIT;
@@ -90,6 +90,16 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 //and adding a comment if they so desire
 export async function addComment(poolConnection, userID, comment, termTaken, grade, classID, difficultyValue, qualityValue, professorID) {
     comment = comment.replaceAll("'", "''");
+    console.log("Printing parameters:");
+    console.log("userID: " + userID);
+    console.log("Comment: " + comment);
+    console.log("termTaken: " + termTaken);
+    console.log("grade: " + grade);
+    console.log("classID: " + classID);
+    console.log("difficultyValue: " + difficultyValue);
+    console.log("qualityValue: " + qualityValue);
+    console.log("professorID: " + professorID);
+
     try {
         console.log("Adding comment: '"  + comment + "' to database");
         let resultSet = await poolConnection.request().query(`
