@@ -40,6 +40,6 @@ Overall, we feel that we have completed all of our goals from this project.
 -- Sprint 3:
 -- Sprint 4: 
 
-We believe this project ended up being a complete success. Although we took almost the entire semester getting to a "Minimum Viable System" as defined in the initial proposal, that was because we did not rush to get the minimum done. Instead, we spent more time in building up a foundation for a bigger and clearer web app, and we believe that this paid off in the long run.
+We believe this project ended up being a complete success. Although we took almost the entire semester getting to a "Minimal System" as defined in the initial proposal, that was because we did not rush to get the minimum done. Instead, we spent more time in building up a foundation for a bigger and clearer web app, and we believe that this paid off in the long run.
 
 (Expand on this more. Talk about each sprint and what all got done vs what we wanted to get done)
