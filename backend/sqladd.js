@@ -100,7 +100,7 @@ export async function addClass(poolConnection, className, classNum, classTypeID)
 //to either one difficulty or one difficulty and one comment per class, but not more than one. In the front end, I would imagine this working like voting 
 //and adding a comment if they so desire
 export async function addComment(poolConnection, userID, comment, termTaken, grade, classID, difficultyValue, qualityValue, professorID) {
-    comment = comment.replaceAll("'", "''");
+    //comment = comment.replaceAll("'", "''");
     console.log("Printing parameters:");
     console.log("userID: " + userID);
     console.log("Comment: " + comment);
