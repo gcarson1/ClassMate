@@ -19,6 +19,7 @@ let poolConnection = await connect(local_connect);
 let lastActivity = Date.now();
 const inactivityTime = 60 * 1000 * 10; // 10 minutes
 
+// Code used for testing the add and delete functions in the database
 // Schedule cron job to close connection after 10 minutes of inactivity
 cron.schedule('*/10 * * * *', () => {
     console.log('Checking for inactivity ' + (Date.now() - lastActivity) / 1000);
