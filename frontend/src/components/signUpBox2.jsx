@@ -107,7 +107,7 @@ const signUp = async () => {
             onChange={(event) => {
                 setSignUpEmail(event.target.value);
             }}></input> 
-          <input className="input" type="text" placeholder="password"
+          <input className="input" type="password" placeholder="password"
           onChange={(event) => {
             setSignUpPassword(event.target.value);
           }}></input> 

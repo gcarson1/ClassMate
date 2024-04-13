@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./UniversityPage.css"
 import { ClassSearchBar } from "../components/searchBars/classSearchBar/classSearchBar";
 import { ClassSearchResultsList } from "../components/searchBars/classSearchBar/classSearchResultList"
-import { useLocation } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
 
 
 
@@ -16,6 +16,7 @@ export default function UniversityPage() {
 
   return (
     <div className="container">
+      <div className="back"><NavLink to="/"><img className="backArrow" src="/public/images/arrow.png" alt="ClassMateLogo" /></NavLink></div>
         <h1 className="university-header">{result ? result.UniName : "Loading..."}</h1>
         <div className="searchBar">
         <ClassSearchBar setResults={setResults} uniID={ result.UniID } />

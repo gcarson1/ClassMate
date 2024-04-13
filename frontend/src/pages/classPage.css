@@ -40,3 +40,8 @@
     }
 
 }
+
+.backArrow{
+    cursor: pointer;
+    height: 80px;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./classPage.css"
-import { useLocation} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReviewList from "../components/reviewList/reviewList";
 import { ReviewForm } from "../components/reviewForm/ReviewForm";
 import { FetchReviews } from "../API/reviewsAPI";
@@ -11,6 +11,7 @@ import { FetchReviews } from "../API/reviewsAPI";
   const location = useLocation();
   const classID = location.state && location.state.result && location.state.result.ClassID;
   const uni = location.state && location.state.uni;
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -35,10 +36,11 @@ import { FetchReviews } from "../API/reviewsAPI";
       console.log(reviews); // Log reviews after it has been updated
   }, [reviews]); // Run this effect whenever reviews changes
 
-
+ 
   return (
-
-    <div className="class-container">
+    <>
+     <div className="back" ><img className="backArrow" onClick={() => navigate(-1)} src="/public/images/arrow.png" alt="ClassMateLogo" /></div>
+     <div className="class-container">
       <div className="meta-data">
         <ReviewForm uni={uni} setAlert={setAlertState} classID={classID}/>
         {alert && <p>You must be logged in to make a review</p>}
@@ -51,5 +53,8 @@ import { FetchReviews } from "../API/reviewsAPI";
         
       </div>
     </div>
+    </>
+
+   
   )
 }

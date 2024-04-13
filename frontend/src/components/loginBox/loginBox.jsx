@@ -81,7 +81,7 @@ const Login = async () => {
             onChange={(event) => {
               setLoginEmail(event.target.value);
             }}></input> 
-          <input className="input" type="text" placeholder="password"
+          <input className="input" type="password" placeholder="password"
           onChange={(event) => {
             setLoginPassword(event.target.value);
           }}></input> 

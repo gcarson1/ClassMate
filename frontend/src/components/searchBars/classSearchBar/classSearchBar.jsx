@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import {React, useEffect, useState } from 'react';
-import "../uniSearchBar/universitySearchBar.css"
+import "./classSearchBar.css"
 
 export const ClassSearchBar = ({ setResults, uniID }) => {
     const [input, setInput] = useState("");

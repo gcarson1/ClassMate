@@ -1,15 +1,30 @@
 .university-header{
     font-size: 60px;
-    padding-top: 30px;
+    margin: 0;
 }
 
 .container{
     width: 100vw;
     height: 100vh;
+    background-image: url('../../public/images/stack.png');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 767px){
     .university-header{
         text-align: center;
     }
+}
+
+.back{
+    width: 100%;
+    padding-left: 40px;
+    padding-top: 10px;
+}
+
+.backArrow{
+    cursor: pointer;
+    height: 80px;
 }
