@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ReviewList from "../components/reviewList/reviewList";
 import { ReviewForm } from "../components/reviewForm/ReviewForm";
 import { FetchReviews } from "../API/reviewsAPI";
-import ReviewHeader from "../components/signUpBox/reviewHeader/reviewHeader";
+import ReviewHeader from "../components/reviewHeader/reviewHeader";
 
   export default function ClassPage() {
   const [reviews, setReviews] = useState([]);
