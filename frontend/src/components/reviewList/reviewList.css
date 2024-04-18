@@ -18,6 +18,7 @@
 @media only screen and (max-width: 767px){
     .review-list{
         width: 100vw;
+        height: 70vh;
         
     }
     .review-element{
