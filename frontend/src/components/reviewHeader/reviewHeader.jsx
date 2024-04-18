@@ -64,10 +64,10 @@ const SimpleLineChart = () => (
         <XAxis dataKey="name" />
         <YAxis domain={[0, 5]} ticks={[0, 1, 2, 3, 4, 5,]}/>
         <Bar dataKey="dif" barSize="15%" fill="#808080" name="Difficulty">
-          <LabelList dataKey="dif"position="top" formatter={(value) => value.toString().substring(0,3)}/>    
+          <LabelList dataKey="dif"position="top" formatter={(value) => (value? value.toString().substring(0,3) : '')}/>    
         </Bar>
         <Bar dataKey="qual" barSize="15%" fill="#000000" name="Utility">
-          <LabelList dataKey="qual" position="top" formatter={(value) => value.toString().substring(0,3)}/>    
+          <LabelList dataKey="qual" position="top" formatter={(value) => (value ? value.toString().substring(0,3) : '')}/>    
         </Bar>
       </BarChart>
     </ResponsiveContainer>
