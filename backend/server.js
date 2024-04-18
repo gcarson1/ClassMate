@@ -9,6 +9,8 @@ import {getUniversities, getClassInfo, getClassesByUniAndType, getAllClassesByUn
 import { addUniversity, addClassType, addComment, addClass, addDifficulty, addProfessor, addUser } from './sqladd.js';
 import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDifficulty, deleteProfessor, deleteUser } from './sqldelete.js';
 
+const port = process.env.PORT || 7071;
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -187,8 +189,8 @@ app.delete('/deleteuser', async (req, res) => {
 
 
 
-app.listen(7071, () => {
-    console.log('Server is running on port 7071');
+app.listen(port, () => {
+    console.log('Server is running on port ${PORT}');
 });
 
 
