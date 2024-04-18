@@ -1,0 +1,30 @@
+.graphContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: -6vw;
+    margin-right: 2vw; 
+    font-size: 1.5vw;
+    width: 30vw;
+}
+
+.text{
+    font-size: 2vw;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 3vw;
+}
+
+@media only screen and (max-width: 767px){
+    .graphContainer{
+        width:100vw;
+        margin-top: -5vw;;
+        margin-left: -8vw;
+        font-size: 5vw;
+    }
+
+    .text{
+        font-size: 5vw;
+        margin-left: 12vw;
+    }
+}

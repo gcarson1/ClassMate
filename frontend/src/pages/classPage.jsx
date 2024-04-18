@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ReviewList from "../components/reviewList/reviewList";
 import { ReviewForm } from "../components/reviewForm/ReviewForm";
 import { FetchReviews } from "../API/reviewsAPI";
+import ReviewHeader from "../components/signUpBox/reviewHeader/reviewHeader";
 
   export default function ClassPage() {
   const [reviews, setReviews] = useState([]);
@@ -42,6 +43,7 @@ import { FetchReviews } from "../API/reviewsAPI";
      <div className="back" ><img className="backArrow" onClick={() => navigate(-1)} src="/public/images/arrow.png" alt="ClassMateLogo" /></div>
      <div className="class-container">
       <div className="meta-data">
+        <ReviewHeader uniID={uni} classID={classID}/>
         <ReviewForm uni={uni} setAlert={setAlertState} classID={classID}/>
         {alert && <p>You must be logged in to make a review</p>}
       </div>
@@ -50,7 +52,6 @@ import { FetchReviews } from "../API/reviewsAPI";
         
       <div className="review-container">
         <ReviewList reviews={reviews} />
-        
       </div>
     </div>
     </>

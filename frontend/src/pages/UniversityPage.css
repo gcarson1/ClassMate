@@ -15,6 +15,7 @@
 @media only screen and (max-width: 767px){
     .university-header{
         text-align: center;
+        font-size: 9vw;
     }
 }
 
