@@ -49,7 +49,7 @@ const data = [
 ]
 
 const SimpleLineChart = () => (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={320}>
       <BarChart
         data={data}
         background={{ fill: '#000000' }}
