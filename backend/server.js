@@ -11,12 +11,6 @@ import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDi
 
 const app = express();
 
-const port = process.env.PORT || 7071;
-
-app.get('/health', (req, res) => {
-    res.status(200).send('OK');
-});
-
 app.use(express.json());
 app.use(cors());
 
@@ -194,8 +188,8 @@ app.delete('/deleteuser', async (req, res) => {
 
 
 
-app.listen(port, () => {
-    console.log('Server is running on port ${PORT}');
+app.listen(7071, () => {
+    console.log('Server is running on port 7071');
 });
 
 
