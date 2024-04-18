@@ -9,9 +9,14 @@ import {getUniversities, getClassInfo, getClassesByUniAndType, getAllClassesByUn
 import { addUniversity, addClassType, addComment, addClass, addDifficulty, addProfessor, addUser } from './sqladd.js';
 import { deleteUniversity, deleteClassType, deleteComment, deleteClass, deleteDifficulty, deleteProfessor, deleteUser } from './sqldelete.js';
 
+const app = express();
+
 const port = process.env.PORT || 7071;
 
-const app = express();
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 app.use(express.json());
 app.use(cors());
 
