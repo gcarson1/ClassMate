@@ -1,6 +1,8 @@
 .university-header{
+    display: flex;
     font-size: 60px;
     margin: 0;
+    justify-content: center;
 }
 
 .container{
