@@ -35,12 +35,19 @@ Overall, we feel that we have completed all of our goals from this project.
 
 ## Reflection
 
--- Sprint 1: 
--- Sprint 2:
--- Sprint 3:
--- Sprint 4: 
+-- Sprint 1: For sprint one, our goal was to get some kind of remote database set up and connect that database to the node js backend. All four members ended up helping with this, but the backend developers did research into backend and database management while the frontend developers researched getting basic components set up. We did successfully create the database and do research, but this sprint was far from a "minimum viable system". However, after this sprint, the roadblock of using the database was now gone.
 
-We believe this project ended up being a complete success. Although we took almost the entire semester getting to a "Minimal System" as defined in the initial proposal, that was because we did not rush to get the minimum done. Instead, we spent more time in building up a foundation for a bigger and clearer web app, and we believe that this paid off in the long run.
+-- Sprint 2: For sprint two, the backend filled the database with all of the tables as well as some basic test data, and they also create necessary add and delete functions for the database. The frontend started with a simple search bar for universities and basic login/signup functionality with Firebase's automatic cookie setups. Unfortunately, this was still not a minimum viable product, but it was getting closer.
+
+-- Sprint 3: For sprint three, teammates filled the database with real reviews. The backend created some necessary query functions and cleaned out the database structure while the frontend created the class search bar, class pages, and a minimal review form. Furthermore, the frontend connected firebase to the Azure database the backend had already made. Finally, the "minimum viable system" has been completed.
+
+-- Sprint 4: The fourth sprint was all about preparing to deploy the website. This is the sprint where we did all the testing for security threats. The backend cleaned up the functions by parameterizing them, making them immune to SQL injection attacks. Also, the frontend fixed the review form to choose only from specific dropdowns, so they could not add "junk" to the database. If a user wants to add a new class, professor, or university, there will be a form to submit that we will curate manually. The frontend was also successfully deployed during this time.
+
+-- Sprint 5: The fifth sprint added some bar graphs to the site, showing the average difficulty and utility values to the class page.
+
+-- Future Sprints: For future sprints, we would want to have the curation for class, professor, and university add forms to be automatic. Furthermore, we would want to make an email verification tool, so that we could check for invalid emails.
+
+We believe this project ended up being a complete success. Although we took almost the entire semester getting to a "Minimum Viable System" as defined in the initial proposal, that was because we did not rush to get the minimum done. Instead, we spent more time in building up a foundation for a bigger and clearer web app, and we believe that this paid off in the long run.
 
 (Expand on this more. Talk about each sprint and what all got done vs what we wanted to get done)
 
