@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./ReviewForm.css";
 import { FetchReviews } from "../../API/reviewsAPI";
+// import { TeacherSearBar } from "../searchBars/teacherSearchBar/teacherSearchBar"
+// import { TeacherSearchList } from "../searchBars/teacherSearchBar/teacherSearchList";
 
 
 export const ReviewForm = ( { uni, setAlert, classID} ) => {
@@ -10,7 +12,7 @@ export const ReviewForm = ( { uni, setAlert, classID} ) => {
   useEffect(() => { //gets list of professors
     const fetchData = async () => {
       try {
-        const result = await axios.get(`http://localhost:7071/class/${classID}/allprofessors`);
+        const result = await axios.get(`http://localhost:7071/uni/${uni}/allprofessors`);
         setProfessors(result.data);
         setProfessorID(result.data[0].ProfessorID); //initializes ID
       } catch (error) {
@@ -26,7 +28,6 @@ export const ReviewForm = ( { uni, setAlert, classID} ) => {
   const [grade, setGrade] = useState("A+");
   const [termTaken, setTermTaken] = useState("Fall");
   const [year, setYear] = useState(new Date().getFullYear());
-  
   const [comment, setComment] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [userID, setUserID] = useState("");

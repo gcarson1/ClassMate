@@ -26,6 +26,8 @@ const navigate = useNavigate();
       localStorage.setItem("loggedIn", isLoggedIn);
       console.log("removed userID from local storage");
       localStorage.removeItem("userID");
+      localStorage.removeItem("userEmail");
+      console.log("removed userEmail from local storage");
     console.log("changed logged in to " + localStorage.getItem('loggedIn'));
     navigate("/"); //keeps users from making a post after logging out
   }
@@ -39,14 +41,20 @@ const navigate = useNavigate();
           </NavLink>
         </div>
           {loggedIn ? (
-            <h1 className="navBar-header-text">Hello User!</h1>
+            <div className="center-menu">
+              <h1 className="navBar-header-text">Hello User!</h1>
+              <h4 className="userEmail">{localStorage.getItem("userEmail")}</h4>
+            </div>
+            
           ) : (
             <h1 className="navBar-header-text">ClassMate</h1>
           )}
           
         <div className="navBar-buttons">
           {loggedIn ? (
+          <>
             <button className="navBar-logout-text" onClick={logout}>Log Out</button>
+          </>
           ) : (
             <>
             <NavLink to="/Login" style={{ color: 'inherit', textDecoration: 'inherit'}}>

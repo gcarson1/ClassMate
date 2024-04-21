@@ -17,7 +17,7 @@ export default function UniversityPage() {
   return (
     <div className="container">
       <div className="back"><NavLink to="/"><img className="backArrow" src="/public/images/arrow.png" alt="ClassMateLogo" /></NavLink></div>
-        <h1 className="university-header">{result ? result.UniName : "Loading..."}</h1>
+        <h1 className="university-name">{result ? result.UniName : "Loading..."}</h1>
         <div className="searchBar">
         <ClassSearchBar setResults={setResults} uniID={ result.UniID } />
         <ClassSearchResultsList results={results} Uni={result.UniID}/>

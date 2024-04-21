@@ -89,6 +89,16 @@
     border: solid black;    
 }
 
+.center-menu{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.userEmail{
+    margin: 0px;
+}
+
 @media only screen and (max-width: 767px){
     
     .logo{

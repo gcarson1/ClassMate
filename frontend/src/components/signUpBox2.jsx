@@ -20,22 +20,41 @@ export default function SignUpBox2() {
 
   const addUser = async (email, uniID) => {
     try {
+      console.log("add user called");
       const response = await axios.post('http://localhost:7071/adduser', { email, uniID });
       console.log("added user " +  email  + " to the database");
       return response.data;
     } catch (error) {
       // Handle error
-      console.error('Error adding user:', error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
       throw error; // Rethrow the error to be handled by the caller if needed
     }
   };
+  
 
   const fetchUserID = async (email) => {
     try {
       const response = await axios.get(`http://localhost:7071/email/${email}/userID`);
       console.log(response.data[0].UserID);
       localStorage.setItem("userID", response.data[0].UserID);
+      localStorage.setItem("userEmail", email);
       console.log("saved " + localStorage.get("userID") + "into local storage");
+      console.log("saved " + localStorage.get("userEmail") + "into local storage");
     } catch (error) {
       setError(error.message);
     }
@@ -56,17 +75,18 @@ export default function SignUpBox2() {
       console.log("User's email:", userEmail);
 
       //adds user to database and saves their new ID to local storage
-      await addUser(currentUser.email, 1);
-      await fetchUserID(currentUser.email);
-      console.log("saved " + localStorage.getItem("userID") + " to local storage");
+      // await addUser(currentUser.email, 1);
+      await fetchUserID(currentUser.email);      
       setLoggedIn(isLoggedIn);
       console.log("signup page setting loggedIn to " + isLoggedIn);
       } catch (error) {
         console.log(error);
       }
     } else {
+      console.log("removing user from local storage");
       localStorage.removeItem("loggedIn");
       localStorage.removeItem("userEmail"); // Remove user's email if not logged in
+      localStorage.removeItem("userID");
     }
     });
 
@@ -78,6 +98,8 @@ export default function SignUpBox2() {
 
 const signUp = async () => {
     try {
+      await addUser(signUpEmail, 1);
+      console.log("added user to azure");
       //creates new user
       const newUser = await createUserWithEmailAndPassword(
         auth,
@@ -93,6 +115,8 @@ const signUp = async () => {
       navigate("/");
 
     } catch (error) {
+      alert("Database error: please try signing up later");
+        console.log("failed adding user to azure")
         console.log(error.message);
         setError(error.message);
     }

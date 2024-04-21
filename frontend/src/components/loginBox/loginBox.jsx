@@ -29,6 +29,7 @@ export default function LoginBox() {
       console.log(response.data[0].UserID);
       // setUserID(response.data[0].UserID); // Assuming response contains the user ID
       localStorage.setItem("userID", response.data[0].UserID);
+  
     } catch (error) {
       setError(error.message);
     }
@@ -43,11 +44,18 @@ export default function LoginBox() {
       if(isLoggedIn) {
         try {
           await fetchUserID(currentUser.email); // gets userID from db
-          console.log("saved " + localStorage.getItem("userID") + " to local storage");
+          localStorage.setItem("userEmail", currentUser.email);
+          console.log("I just saved " + localStorage.getItem("userID") + " to local storage");
+          console.log("saved " + localStorage.getItem("userEmail") + " into local storage");
           console.log("loggedIn set to " + localStorage.getItem("loggedIn"));
         } catch (error) {
           setError(error.message);
         }
+      } else {
+        console.log("removing user from local storage");
+        localStorage.removeItem("loggedIn");
+        localStorage.removeItem("userEmail"); // Remove user's email if not logged in
+        localStorage.removeItem("userID");
       }
     });
       
