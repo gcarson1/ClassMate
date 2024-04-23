@@ -16,6 +16,9 @@ function Home() {
         <SearchBar setResults={setResults} />
         <SearchResultsList results={results} />
       </div>
+      <div className="support">
+        <p>Are we missing your school/class/professor? <br></br>Let us know! ClassMate@support.com</p>
+      </div>
     </div>
       
   )

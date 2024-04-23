@@ -12,6 +12,12 @@ const NavBar = () => {
   const [loggedIn, setLoggedIn] = useContext(LoginContext);
 const navigate = useNavigate();
 
+useEffect(() => {
+  if(loggedIn) {
+    console.log("user email stored: ", localStorage.getItem("userEmail"));
+  }
+}, [loggedIn]);
+
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn');
     if (storedLoggedIn !== null) {
@@ -37,7 +43,7 @@ const navigate = useNavigate();
       <header className="navBar-container">
         <div className="navBar-logo">
           <NavLink to="/">
-            <img className="logo" src="/public/images/favicon.ico" alt="ClassMateLogo" />
+            <img className="logo" src="/public/images/finalFav.png" alt="ClassMateLogo" />
           </NavLink>
         </div>
           {loggedIn ? (

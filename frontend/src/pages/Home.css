@@ -16,6 +16,7 @@
         background-position: center;
         height: 100vh;
         overflow: hidden;
+        display: flex;
     }
 }
 
@@ -27,4 +28,16 @@
 
 body, html {
     margin: 0;
+  }
+
+  .support {
+    position: fixed;
+    bottom: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    text-align: center;
+    background-color: white;
+    width: 400px;
+    padding: 3px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
   }

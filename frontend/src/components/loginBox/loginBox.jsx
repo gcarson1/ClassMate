@@ -39,15 +39,18 @@ export default function LoginBox() {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       const isLoggedIn = !!currentUser;
+      console.log("setting isLoggedIn to: ", isLoggedIn);
       setLoggedIn(isLoggedIn);
-      localStorage.setItem("loggedIn", isLoggedIn); //saving logged In state to local storage to persist through refreshes and navigation
+      
       if(isLoggedIn) {
         try {
+          localStorage.setItem("loggedIn", isLoggedIn); //saving logged In state to local storage to persist through refreshes and navigation
           await fetchUserID(currentUser.email); // gets userID from db
           localStorage.setItem("userEmail", currentUser.email);
           console.log("I just saved " + localStorage.getItem("userID") + " to local storage");
           console.log("saved " + localStorage.getItem("userEmail") + " into local storage");
           console.log("loggedIn set to " + localStorage.getItem("loggedIn"));
+          navigate("/");
         } catch (error) {
           setError(error.message);
         }
@@ -72,7 +75,7 @@ const Login = async () => {
     );
     console.log(user);
     
-    navigate("/");
+    
 
 } catch (error) {
     console.log(error.message);
