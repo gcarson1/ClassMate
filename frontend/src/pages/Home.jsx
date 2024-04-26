@@ -17,7 +17,7 @@ function Home() {
         <SearchResultsList results={results} />
       </div>
       <div className="support">
-        <p>Are we missing your school/class/professor? <br></br>Let us know! ClassMate@support.com</p>
+        <p>Are we missing your school/class/professor? <br></br>Let us know! classmate5upp0rt1@gmail.com</p>
       </div>
     </div>
       
