@@ -11,6 +11,7 @@ import ReviewHeader from "../components/reviewHeader/reviewHeader";
   const [alert, setAlert] = useState(false);
   const location = useLocation();
   const classID = location.state && location.state.result && location.state.result.ClassID;
+  const className = location.state && location.state.result && location.state.result.FullName;
   const uni = location.state && location.state.uni;
   const navigate = useNavigate();
 
@@ -36,14 +37,13 @@ import ReviewHeader from "../components/reviewHeader/reviewHeader";
     useEffect(() => {
       console.log(reviews); // Log reviews after it has been updated
   }, [reviews]); // Run this effect whenever reviews changes
-
  
   return (
     <>
      <div className="back" ><img className="backArrow" onClick={() => navigate(-1)} src="/public/images/arrow.png" alt="ClassMateLogo" /></div>
      <div className="class-container">
       <div className="meta-data">
-        <ReviewHeader  uniID={uni} classID={classID}/>
+        <ReviewHeader uniID={uni} classID={classID} className={className}/>
         <ReviewForm uni={uni} setAlert={setAlertState} classID={classID}/>
         {alert && <p>You must be logged in to make a review</p>}
       </div>
