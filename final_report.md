@@ -29,6 +29,8 @@ In the proposal, the main issue we forsaw involved making the website dynamic, u
 
 We ended up having two members, Ryan Peruski and Gabe Carson, handle the backend and the database, while the other two members, Jake Marlow and Chris White, dealt with the frontend, design, and UX. Over time, team members strayed from contributing equally, and two of the four members ended up leading the group more.
 
+Jake spearheaded the larger frontend projects, such as implementing the middlewear and finalizing website design. Meanwhile Chris handled other frontend tasks, such as the mobile port of the website and class average bar graphs.
+
 (Expand on this more. )
 
 ## Project management
