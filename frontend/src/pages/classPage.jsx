@@ -43,7 +43,7 @@ import ReviewHeader from "../components/reviewHeader/reviewHeader";
      <div className="back" ><img className="backArrow" onClick={() => navigate(-1)} src="/public/images/arrow.png" alt="ClassMateLogo" /></div>
      <div className="class-container">
       <div className="meta-data">
-        <ReviewHeader uniID={uni} classID={classID}/>
+        <ReviewHeader  uniID={uni} classID={classID}/>
         <ReviewForm uni={uni} setAlert={setAlertState} classID={classID}/>
         {alert && <p>You must be logged in to make a review</p>}
       </div>
