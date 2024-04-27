@@ -3,6 +3,7 @@
     font-size: 60px;
     margin: 0;
     justify-content: center;
+    text-align: center;
 }
 
 .container{
@@ -14,13 +15,6 @@
     overflow: hidden;
 }
 
-@media only screen and (max-width: 767px){
-    .university-header{
-        text-align: center;
-        font-size: 9vw;
-    }
-}
-
 .back{
     width: 100%;
     padding-left: 40px;
@@ -30,4 +24,12 @@
 .backArrow{
     cursor: pointer;
     height: 80px;
+}
+
+@media only screen and (max-width: 767px){
+    .university-name{
+        text-align: center;
+        font-size: 9vw;
+        margin-top: 5vw;
+    }
 }

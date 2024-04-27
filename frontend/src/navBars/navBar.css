@@ -101,6 +101,11 @@
 
 @media only screen and (max-width: 767px){
     
+    .navBar-container{
+        justify-content: space-evenly;
+        gap: 4vw;
+    }
+
     .logo{
         height: 15vw;
     }
@@ -111,6 +116,7 @@
     
     
     .navBar-header-text {
+        padding-left: 0vw;
         font-size: 7vw;
     }
     
@@ -120,19 +126,21 @@
     }
     
     .navBar-login-button {
-        font-size: 5.5vw;  
+        margin-left: -5vw;
+        font-size: 4.5vw;  
     }
     
     .navBar-login-button:hover {
-        font-size: 5.5vw;
+        font-size: 4.5vw;
     }
 
     .navBar-signUp-button {
-        font-size: 5.5vw;
+        margin-left: -1vw;
+        font-size: 4.5vw;
     }
     
     .navBar-signUp-button:hover {
-        font-size: 5.5vw;
+        font-size: 4.5vw;
     }
     
     .navBar-logout-text {
@@ -141,5 +149,9 @@
     
     .navBar-logout-text:hover {
         font-size: 4.5vw;  
+    }
+
+    .userEmail{
+        font-size: 3vw;
     }
 }

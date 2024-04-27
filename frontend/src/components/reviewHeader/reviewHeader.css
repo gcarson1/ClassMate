@@ -3,15 +3,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: -6vw;
     margin-right: 2vw; 
     font-size: 1.20vw;
     width: 30vw;
 }
 
 .text{
-    font-size: 2vw;
+    font-size: 1.8vw;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
     margin-left: 3vw;
 }
 

@@ -6,21 +6,6 @@
     overflow: hidden;
 }
 
-@media only screen and (max-width: 767px){
-    html, body{
-        overflow: hidden;
-    }
-    .home-container{
-        background-image: url('../../public/images/stack.png');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-    }
-}
-
-
 .searchBar {
     display: flex;
     flex-direction: column;
@@ -41,3 +26,10 @@ body, html {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
   }
+
+  @media only screen and (max-width: 767px){
+    .support{
+        width: 90vw;
+        margin-bottom: 5vw;
+    }
+}

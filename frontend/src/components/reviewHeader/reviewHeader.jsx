@@ -3,7 +3,7 @@ import "./reviewHeader.css";
 import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
 
-export default function ReviewHeader( {uniID, classID}) {
+export default function ReviewHeader( {uniID, classID, className}) {
     const [qualities, setQualities] = useState([]);
     const [difficulty, setDifficulty] = useState([]);
 
@@ -34,6 +34,9 @@ useEffect(() => {
     console.log("difficulties ", difficulty);
 }, [qualities, difficulty]);
 
+useEffect(() =>{
+  console.log("name: ", className);
+},[])
 
 const averageQuality = qualities.reduce((acc, curr) => acc + curr, 0) / qualities.length;
 const averageDifficulty = difficulty.reduce((acc, curr) => acc + curr, 0) / difficulty.length;
@@ -64,7 +67,7 @@ const SimpleLineChart = () => (
         <XAxis dataKey="name" />
         <YAxis domain={[0, 5]} ticks={[0, 1, 2, 3, 4, 5,]}/>
         <Bar dataKey="dif" barSize="15%" fill="#808080" name="Difficulty">
-          <LabelList dataKey="dif"position="top" formatter={(value) => (value? value.toString().substring(0,3) : '')}/>    
+          <LabelList dataKey="dif"position="top" formatter={(value) => (value ? value.toString().substring(0,3) : '')}/>    
         </Bar>
         <Bar dataKey="qual" barSize="15%" fill="#000000" name="Utility">
           <LabelList dataKey="qual" position="top" formatter={(value) => (value ? value.toString().substring(0,3) : '')}/>    
@@ -81,7 +84,7 @@ const SimpleLineChart = () => (
     </head>
         <div className='graphContainer'>
             <div className="text">
-                <h2>Class Score</h2>
+                <h2>{className}</h2>
             </div>
             <SimpleLineChart />
         </div>
