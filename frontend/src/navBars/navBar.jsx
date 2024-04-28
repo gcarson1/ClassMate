@@ -48,7 +48,7 @@ useEffect(() => {
         </div>
           {loggedIn ? (
             <div className="center-menu">
-              <h1 className="navBar-header-text">Hello User!</h1>
+              <h1 className="navBar-header-text">Hello User</h1>
               <h4 className="userEmail">{localStorage.getItem("userEmail")}</h4>
             </div>
             

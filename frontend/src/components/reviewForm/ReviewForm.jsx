@@ -6,7 +6,7 @@ import { FetchReviews } from "../../API/reviewsAPI";
 // import { TeacherSearchList } from "../searchBars/teacherSearchBar/teacherSearchList";
 
 
-export const ReviewForm = ( { uni, setAlert, classID} ) => {
+export const ReviewForm = ( { uni, setAlert, classID, setShowGraph, showGraph} ) => {
    const [professors, setProfessors] = useState([]);
    const [professorID, setProfessorID] = useState(""); //professor ID wansn't getting set unless I did this
   useEffect(() => { //gets list of professors
@@ -81,8 +81,11 @@ export const ReviewForm = ( { uni, setAlert, classID} ) => {
 
 
   const togglePopup = () => {
+    console.log("toggle called");
+    
     if (localStorage.getItem("loggedIn") === "true") {
       setIsOpen(!isOpen);
+      setShowGraph(prevShowGraph => (prevShowGraph === 1 ? 0 : 1));
     } else {
       setAlert(true); // Set the alert state if the user is not logged in
     }
@@ -183,8 +186,8 @@ export const ReviewForm = ( { uni, setAlert, classID} ) => {
                 ))}
               </select>
             </div>
-              <input className="commentBox" type="text" placeholder="Comment..."
-              onChange={(e) => setComment(e.target.value)}></input> 
+              <textarea className="commentBox" type="text" placeholder="Comment..."
+              onChange={(e) => setComment(e.target.value)}></textarea> 
             </div>
             
             <button className="addReview-button" onClick={handleSubmit}>

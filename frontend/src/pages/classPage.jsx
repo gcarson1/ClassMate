@@ -9,6 +9,7 @@ import ReviewHeader from "../components/reviewHeader/reviewHeader";
   export default function ClassPage() {
   const [reviews, setReviews] = useState([]);
   const [alert, setAlert] = useState(false);
+  const [showGraph, setShowGraph] = useState(1);
   const location = useLocation();
   const classID = location.state && location.state.result && location.state.result.ClassID;
   const className = location.state && location.state.result && location.state.result.FullName;
@@ -43,8 +44,8 @@ import ReviewHeader from "../components/reviewHeader/reviewHeader";
      <div className="back" ><img className="backArrow" onClick={() => navigate(-1)} src="/public/images/arrow.png" alt="ClassMateLogo" /></div>
      <div className="class-container">
       <div className="meta-data">
-        <ReviewHeader uniID={uni} classID={classID} className={className}/>
-        <ReviewForm uni={uni} setAlert={setAlertState} classID={classID}/>
+      {showGraph === 1 && (<ReviewHeader uniID={uni} classID={classID} className={className}/>)}
+        <ReviewForm uni={uni} setAlert={setAlertState} classID={classID} setShowGraph={setShowGraph} showGrpah={showGraph}/>
         {alert && <p>You must be logged in to make a review</p>}
       </div>
     

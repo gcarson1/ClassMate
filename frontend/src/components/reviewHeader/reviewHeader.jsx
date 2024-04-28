@@ -3,7 +3,7 @@ import "./reviewHeader.css";
 import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
 
-export default function ReviewHeader( {uniID, classID, className, className}) {
+export default function ReviewHeader( {uniID, classID, className}) {
     const [qualities, setQualities] = useState([]);
     const [difficulty, setDifficulty] = useState([]);
 
