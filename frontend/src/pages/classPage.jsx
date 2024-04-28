@@ -45,7 +45,7 @@ import ReviewHeader from "../components/reviewHeader/reviewHeader";
      <div className="class-container">
       <div className="meta-data">
       {showGraph === 1 && (<ReviewHeader uniID={uni} classID={classID} className={className}/>)}
-        <ReviewForm uni={uni} setAlert={setAlertState} classID={classID} setShowGraph={setShowGraph} showGrpah={showGraph}/>
+        <ReviewForm uni={uni} setAlert={setAlertState} classID={classID} setShowGraph={setShowGraph}/>
         {alert && <p>You must be logged in to make a review</p>}
       </div>
     

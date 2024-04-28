@@ -6,20 +6,26 @@ import { FetchReviews } from "../../API/reviewsAPI";
 // import { TeacherSearchList } from "../searchBars/teacherSearchBar/teacherSearchList";
 
 
-export const ReviewForm = ( { uni, setAlert, classID, setShowGraph, showGraph} ) => {
+export const ReviewForm = ( { uni, setAlert, classID, setShowGraph} ) => {
    const [professors, setProfessors] = useState([]);
    const [professorID, setProfessorID] = useState(""); //professor ID wansn't getting set unless I did this
   useEffect(() => { //gets list of professors
     const fetchData = async () => {
       try {
         const result = await axios.get(`http://localhost:7071/uni/${uni}/allprofessors`);
-        setProfessors(result.data);
-        setProfessorID(result.data[0].ProfessorID); //initializes ID
+        const sortedProfessors = result.data.sort((a, b) => {
+          // Compare professors' names alphabetically
+          return a.Name.localeCompare(b.Name);
+        });
+        console.log("sorted professors");
+        console.log(sortedProfessors);
+        setProfessors(sortedProfessors);
+        setProfessorID(sortedProfessors[0].ProfessorID); // initializes ID
       } catch (error) {
         console.error("Error fetching professors:", error);
       }
     };
-
+    
     fetchData();
   }, []);
 
@@ -31,9 +37,6 @@ export const ReviewForm = ( { uni, setAlert, classID, setShowGraph, showGraph} )
   const [comment, setComment] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [userID, setUserID] = useState("");
-
-  
-
 
   useEffect(() => {
   if (localStorage.getItem("userID") !== null) {

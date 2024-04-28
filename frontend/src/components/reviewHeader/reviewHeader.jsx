@@ -1,13 +1,11 @@
 import axios from 'axios';
 import "./reviewHeader.css";
 import { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList } from 'recharts';
 
 export default function ReviewHeader( {uniID, classID, className}) {
     const [qualities, setQualities] = useState([]);
     const [difficulty, setDifficulty] = useState([]);
-
-  
 
 
 function fetchData() {
@@ -83,8 +81,8 @@ const SimpleLineChart = () => (
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
         <div className='graphContainer'>
-            <div className="text">
-                <h2>Class Score</h2>
+            <div className="className-text-wrapper">
+                <h2 className='className-text'>{className}</h2>
             </div>
             <SimpleLineChart />
         </div>

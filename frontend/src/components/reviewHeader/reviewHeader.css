@@ -8,13 +8,18 @@
     width: 30vw;
 }
 
-.text{
+
+.className-text-wrapper{
     font-size: 1.8vw;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     margin-left: 3vw;
+    margin-top: 0px;
 }
 
+.className-text{
+    margin-top: 0px;
+}
 @media only screen and (max-width: 767px){
     .graphContainer{
         width:100vw;
