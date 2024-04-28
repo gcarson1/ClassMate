@@ -32,5 +32,10 @@
         font-size: 5vw;
         margin-left: 12vw;
     }
+
+    .className-text{
+        margin-left: 10vw;
+        font-size: 8vw;
+    }
 }
 
