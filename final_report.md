@@ -31,7 +31,7 @@ We ended up having two members, Ryan Peruski and Gabe Carson, handle the backend
 
 Jake spearheaded the larger frontend projects, such as implementing the middlewear and finalizing website design. Meanwhile Chris handled other frontend tasks, such as the mobile port of the website and class average bar graphs.
 
-Ryan led a lot of the Database work, as he had the most experience with databases. He wrote the query functions and all of the middleware functionality, so that the frontend could use it for the site. Gabe created and organized the Database, as well as focused on the future of deploying the product we had.
+Ryan led a lot of the backend work, as he had the most experience with databases. He wrote the query functions and all of the middleware functionality, so that the frontend could use it for the site. Gabe created and organized the Database, as well as focused on the future of deploying the product we had.
 
 ## Project management and Reflection
 
